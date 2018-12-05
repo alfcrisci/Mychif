@@ -1,28 +1,28 @@
-Compound,keytag,CAS
-"Aflatoxin B1","AFB1","1162-65-8"
-"Aflatoxin B2","AFB2","7220-81-7"
-"Aflatoxin G1","AFG1","1165-39-5"
-"Aflatoxin G2","AFG2","7241-98-7"
-"Ochratoxin A","OTA","303-47-9"
-"Deoxynivalenol","DON","51481-10-8"
-"3AcetylDeoxynivalenol","3ADON","50722-38-8"
-"15AcetylDeoxynivalenol","15ADON","88337-96-6"
-"Nivalenol","NIV","23282-20-4"
-"Fusarenon FUSX","FUSX","23255-69-8"
-"Toxyn T2","T2","21259-20-1"
-"Toxyn HT2","HT2","26934-87-2"
-"Zearalenone","ZEN","17924-92-4"
-"Fumonisin B1","B1","116355-83-0"
-"Fumonisin B2","B2","116355-84-1"
-"Fumonisin B3","B3","1422359-85-0"
-"Fumonisin B4","B4","136379-60-7"
-"Ergocristine","ECris","511-08-0"
-"Ergocornina","ECorn","564-36-3"
-"Alternariol","AOH","641-38-3"
-"Alternariol monomethyl ether","AME","26894-49-5"
-"Enniatin B","ENNB","917-13-5"
-"Enniatin B1","ENNB1","19914-20-6"
-"Enniatin A","ENNA","2503-13-1"
-"Enniatin A1","ENNA1","4530-21-6"
-"Beauvericin","BEA","26048-05-5"
-"Patulin","PA","149-29-1"
+Compound,keytag,CAS,pubchemID
+"Aflatoxin B1","AFB1","1162-65-8",186907
+"Aflatoxin B2","AFB2","7220-81-7",2724360 
+"Aflatoxin G1","AFG1","1165-39-5",14421 
+"Aflatoxin G2","AFG2","7241-98-7",2724362 
+"Ochratoxin A","OTA","303-47-9",442530  
+"Deoxynivalenol","DON","51481-10-8",40024
+"3AcetylDeoxynivalenol","3ADON","50722-38-8",104759
+"15AcetylDeoxynivalenol","15ADON","88337-96-6",10382483
+"Nivalenol","NIV","23282-20-4",5284433
+"Fusarenon FUSX","FUSX","23255-69-8",304599 
+"Toxyn T2","T2","21259-20-1",5284461
+"Toxyn HT2","HT2","26934-87-2",10093830
+"Zearalenone","ZEN","17924-92-4",5281576  
+"Fumonisin B1","B1","116355-83-0",2733487 
+"Fumonisin B2","B2","116355-84-1",2733489 
+"Fumonisin B3","B3","1422359-85-0",3034751 
+"Fumonisin B4","B4","136379-60-7",42608359  
+"Ergocristine","ECris","511-08-0",31116
+"Ergocornina","ECorn","564-36-3",73453
+"Alternariol","AOH","641-38-3",5359485
+"Alternariol monomethyl ether","AME","26894-49-5",5360741
+"Enniatin B","ENNB","917-13-5",164754
+"Enniatin B1","ENNB1","19914-20-6",11262300
+"Enniatin A","ENNA","2503-13-1",57339252  
+"Enniatin A1","ENNA1","4530-21-6",57339253  
+"Beauvericin","BEA","26048-05-5",3007984  
+"Patulin","PA","149-29-1",4696
