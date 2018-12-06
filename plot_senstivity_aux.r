@@ -4,10 +4,11 @@ fortify_lowry_data = function(data,
                                param_var = "Parameter", 
                                main_var = "Main.Effect", 
                                inter_var = "Interaction") {
-  #Convert wide to long format
-  mdata <- melt(data, id.vars = param_var)
+
+  mdata = melt(data, id.vars = param_var)
   
   #Order columns by main effect and reorder parameter levels
+  
   o <- order(data[, main_var], decreasing = TRUE)
   data <- data[o, ]
   data[, param_var] <- factor(
@@ -42,7 +43,8 @@ fortify_lowry_data = function(data,
   list(data = data, mdata = mdata)
 }
 
-#Function to make lowry plot
+# Function to make lowry plot
+
 lowry_plot = function(data,
                        param_var = "Parameter",
                        main_var = "Main.Effect",
