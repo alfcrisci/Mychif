@@ -1,4 +1,5 @@
-library(ggplot2)
+require(ggplot2)
+require(reshape2)
 
 fortify_lowry_data = function(data, 
                                param_var = "Parameter", 
