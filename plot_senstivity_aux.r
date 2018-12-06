@@ -1,6 +1,6 @@
 library(ggplot2)
 
-fortify_lowry_data <- function(data, 
+fortify_lowry_data = function(data, 
                                param_var = "Parameter", 
                                main_var = "Main.Effect", 
                                inter_var = "Interaction") {
@@ -43,7 +43,7 @@ fortify_lowry_data <- function(data,
 }
 
 #Function to make lowry plot
-lowry_plot <- function(data,
+lowry_plot = function(data,
                        param_var = "Parameter",
                        main_var = "Main.Effect",
                        inter_var = "Interaction",
