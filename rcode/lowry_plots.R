@@ -1,8 +1,27 @@
 #==============================================================
 # Lowry plots
 #==============================================================
+require(ggplo2)
+require(reshape2)
+
+m_xylene_data <- data.frame(
+  Parameter = c(
+    "BW", "CRE", "DS", "KM", "MPY", "Pba", "Pfaa",
+    "Plia", "Prpda", "Pspda", "QCC", "QfaC", "QliC",
+    "QPC", "QspdC", "Rurine", "Vfac", "VliC", "Vmax"),
+  "Main Effect" = c(
+    1.03E-01, 9.91E-02, 9.18E-07, 3.42E-02, 9.27E-3, 2.82E-2, 2.58E-05,
+    1.37E-05, 5.73E-4, 2.76E-3, 6.77E-3, 8.67E-05, 1.30E-02,
+    1.19E-01, 4.75E-04, 5.25E-01, 2.07E-04, 1.73E-03, 1.08E-03),
+  Interaction = c(
+    1.49E-02, 1.43E-02, 1.25E-04, 6.84E-03, 3.25E-03, 7.67E-03, 8.34E-05,
+    1.17E-04, 2.04E-04, 7.64E-04, 2.84E-03, 8.72E-05, 2.37E-03,
+    2.61E-02, 6.68E-04, 4.57E-02, 1.32E-04, 6.96E-04, 6.55E-04
+  )
+)
 
 #Function to prepare data for lowry plot
+
 fortify_lowry_data <- function(data, 
                                param_var = "Parameter", 
                                main_var = "Main.Effect", 
