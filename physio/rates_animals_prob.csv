@@ -1,0 +1,6 @@
+species,Qingest,Qingest_sd,Qingest_dist,kgastric,kgastric_sd,kgastric_dist,Qmilk,Qmilk_sd,Qmilk_dist,Qegg,Qegg_sd,Qegg_dist,fbile,fbile_sd,fbile_dist
+cat,0.155,NA,LN,0.004166667,NA,LN,0,NA,LN,NA,NA,LN,0,NA,LN
+cattle,5.92E+01,NA,LN,0.004166667,NA,LN,0.0213,0.007466667,LN,NA,NA,LN,0.97,NA,LN
+chicken,3.70E-01,NA,LN,0.004166667,NA,LN,NA,NA,LN,6.04E-05,5.06E-06,LN,0,NA,LN
+sheep,4.77,NA,LN,0.004166667,NA,LN,0.001083333,0.000533333,LN,NA,NA,LN,0,NA,LN
+swine,8.85,NA,LN,0.004166667,NA,LN,0,NA,LN,NA,NA,LN,0.97,NA,LN
