@@ -1,5 +1,5 @@
 #==============================================================
-# Lowry plots
+# Lowry plots https://www.r-bloggers.com/introducing-the-lowry-plot/
 #==============================================================
 require(ggplo2)
 require(reshape2)
