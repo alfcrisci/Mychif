@@ -1,18 +1,23 @@
 #############################################################################################################################
 # Setup working directory
 
-setwd("/home/alf/Scrivania/lav_michyf/occurence")
+#setwd("/home/alf/Scrivania/lav_michyf/occurence")
+setwd("..")
+
 ##############################################################################################################################
-# Load libraries & functions . Check if packages was installed.
+# Load libraries & functions . Check if all packages was installed.
 
 library(XLConnect)
 library(doBy)
+
 source("load_lib.r")
 source("aux_mycosources.r")
 
 ##############################################################################################################################
 # Read data
+
 DB_DATA_TRUE=readRDS("data/DB_DATA_TRUE.rds")
+
 DB_DATA_TRUE_occ=DB_DATA_TRUE[which(DB_DATA_TRUE$Co_occurrence==1),]
 DB_DATA_TRUE_occ$refunique=gsub("_(.+)","",DB_DATA_TRUE_occ$Ref)
 DB_DATA_TRUE_occ$meanTot=as.numeric(DB_DATA_TRUE_occ$meanTot)
@@ -22,6 +27,8 @@ DB_DATA_TRUE_occ_v=DB_DATA_TRUE_occ[unique(c(which(DB_DATA_TRUE_occ$meanTot>-1),
 DB_DATA_TRUE_occ_v$data=ifelse(is.na(DB_DATA_TRUE_occ_v$meanTot),DB_DATA_TRUE_occ_v$Concentration,DB_DATA_TRUE_occ_v$meanTot)
 
 file.remove("PlantTox_occurence_data.xls")
+
+##########################################################################################################################################
 
 XLConnect::writeWorksheetToFile("PlantTox_occurence_data.xls",DB_DATA_TRUE_occ_v,"data_clean")
 
@@ -43,8 +50,6 @@ XLConnect::writeWorksheetToFile("PlantTox_occurence_stat.xls",temp,label_plants[
 
 
 
-
-conta_dati=function(x) length(c(which(x$meanTot>0),which(x$Concentration>0)))
 
 
 

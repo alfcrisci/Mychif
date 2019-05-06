@@ -11,3 +11,5 @@ firstup <- function(x) {
 normFunc <- function(x){(x-mean(x, na.rm = T))/sd(x, na.rm = T)}
 range01 <- function(x){(x-min(x,na.rm=T))/(max(x,na.rm=T)-min(x,na.rm=T))}
 
+conta_dati=function(x) length(c(which(x$meanTot>0),which(x$Concentration>0)))
+

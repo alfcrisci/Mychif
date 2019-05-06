@@ -3,13 +3,15 @@
 setwd("/home/alf/Scrivania/lav_michyf/occurence")
 
 source("load_lib.r")
-
 source("aux_mycosources.r")
+
+
 #####################################################################################################################################
 # data_occ=read_excel("data/all_cereals_FINALE.xls",1)
 # data_occ[is.na(data_occ)]=NA
 # data_occ=as.data.frame(data_occ)
 # saveRDS(data_occ,"data_occ.rds")
+
 #####################################################################################################################################
 #' @Roberta
 #' 
@@ -374,7 +376,7 @@ saveRDS(plant_myco_db_occ,"data/plant_myco_db_occ.rds")
 
 
 
-
+###########################################################################################################################################################
 
 
 #  Reference
