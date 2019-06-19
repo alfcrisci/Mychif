@@ -26,7 +26,5 @@ library(RColorBrewer)
 library(dendextend)
 library(reshape2)
 library(ggpubr)
-library(XLConnect)
-library(doBy)
 
 #################################################################

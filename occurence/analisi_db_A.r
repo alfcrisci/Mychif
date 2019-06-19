@@ -1,20 +1,24 @@
 #####################################################################################################################################
 
-setwd("")
+# setwd("/home/alf/Scrivania/lav_michyf/repo/Mychif/occurence")
 
+setwd("")
 source("load_lib.r")
 source("aux_mycosources.r")
 
 #####################################################################################################################################
 # read data
 
-data_occ=readRDS("data_occ.rds")
+data_occ=readRDS("data/data_occ.rds")
+
 
 #####################################################################################################################################
-# data_occ=read_excel("data/all_cereals_FINALE.xls",1)
-# data_occ[is.na(data_occ)]=NA
+# data_occ=read_excel("data/all_cereals_FINALE_RP.xls",1)
+# data_occ[data_occ=="NaN"]=NA
+# data_occ$meanTot=as.numeric(data_occ$meanTot)
+# data_occ$Concentration=as.numeric(data_occ$Concentration)
 # data_occ=as.data.frame(data_occ)
-# saveRDS(data_occ,"data_occ.rds")
+# saveRDS(data_occ,"data/data_occ.rds")
 
 #####################################################################################################################################
 #' @Roberta
@@ -45,7 +49,6 @@ data_occ=readRDS("data_occ.rds")
 
 #####################################################################################################################################
 
-
 #####################################################################################################################################
 # [1] "DB_origin"           "sampCountryorigin"   "sampContinentorigin" "sampContinent"       "paramType"           "sampCountry"        
 # [7] "sampRegion"          "sampInfo_latitude"   "sampInfo_longitude"  "sampInfo_altitude"   "sampYear"            "sampYearIncreas"    
@@ -60,7 +63,6 @@ data_occ=readRDS("data_occ.rds")
 # working on GEO
 
 data_auth_geo=c("DB_origin","sampContinent","sampCountryorigin","sampContinentorigin","sampCountry","sampRegion")
-
 DB_AUTH_GEO=data_occ[data_auth_geo]
 
 #   to uppercase
@@ -121,6 +123,9 @@ res_cont_orig=data.frame(code=continents,Ndata_orig=unlist(res),Ndata=res_cont$N
 
 saveRDS(res_cont_orig,"data/res_continent_orig.rds")
 saveRDS(res_country_orig,"data/res_country_orig.rds")
+file.remove("data/mycotoxins_geo.xls")
+XLConnect::writeWorksheetToFile("data/mycotoxins_geo.xls",res_cont_orig,"continent")
+XLConnect::writeWorksheetToFile("data/mycotoxins_geo.xls",res_country_orig,"nations")
 
 
 #################################################################################################################################
@@ -147,11 +152,22 @@ DB_DATA_FULL=as.data.frame(data_occ[data_values])
 
 # working on missing data management
 
-id_overlod=which(DB_DATA_FULL$meanTot >=-1)       # 1480
-id_overlod2=which(DB_DATA_FULL$Concentration>=-1) # 1488
-id_overlod_full=unique(c(id_overlod,id_overlod2)) # 5802
-DB_DATA_TRUE=DB_DATA_FULL[id_overlod_full,]       
 
+id_overlod=which(DB_DATA_FULL$meanTot >=-1)       # 2556
+length(id_overlod)
+id_overlod2=which(DB_DATA_FULL$Concentration>=-1) # 3136
+length(id_overlod2)
+id_overlod_full=unique(c(id_overlod,id_overlod2)) # 5598
+length(id_overlod_full)
+DB_DATA_TRUE=DB_DATA_FULL[id_overlod_full,]       # 
+DB_DATA_TRUE$Concentration=as.numeric(DB_DATA_TRUE$Concentration)
+DB_DATA_TRUE$meanPos=as.numeric(DB_DATA_TRUE$meanPos)
+DB_DATA_TRUE$median=as.numeric(DB_DATA_TRUE$median)
+DB_DATA_TRUE$min=as.numeric(DB_DATA_TRUE$min)                
+DB_DATA_TRUE$max=as.numeric(DB_DATA_TRUE$max) 
+DB_DATA_TRUE$sampSize=as.numeric(DB_DATA_TRUE$sampSize)
+
+saveRDS(DB_DATA_TRUE,"data/DB_DATA_TRUE.rds")
 #################################################################################################################################
 
 
@@ -169,20 +185,21 @@ plantrank=sort(rowSums(table_plants_mycotoxin),decreasing = T)
 
 aux_info_mycotox=data_occ[id_overlod_full,c("sampYearIncreas","Co_occurrence","Ref")]
 
-aux_info_mycotox$agepaper=2019-as.numeric(gsub("[A-z]","",gsub("\\W+","",aux_info_mycotox$Ref)))
+aux_info_mycotox$agepaper=2019-as.numeric(unlist(lapply(regmatches(aux_info_mycotox$Ref,gregexpr("[[:digit:]]+", aux_info_mycotox$Ref)),function(x) x[1])))
 
-# aux_info_mycotox$agepaper[764:782]=8 # eventual debug on age of paper
+years_paper=aux_info_mycotox$agepaper
+
+png("images/Years_paper.png")
+hist(years_paper,main="Distribution age of mycotoxin occurence papers \n( Ref year= 2019)")
+dev.off()
 
 DB_DATA_TRUE$agepaper=aux_info_mycotox$agepaper
 DB_DATA_TRUE$havebounds=ifelse((!is.na(DB_DATA_TRUE$min) & !is.na(DB_DATA_TRUE$max)),1,0)
 DB_DATA_TRUE$havemeanpos=ifelse((!is.na(DB_DATA_TRUE$meanPos)),1,0)
 DB_DATA_TRUE$havedata=ifelse((!is.na(DB_DATA_TRUE$meanTot) || !is.na(DB_DATA_TRUE$Concentration)),1,0)
-DB_DATA_TRUE$norm_agepaper=scale(DB_DATA_TRUE$agepaper,center=F)
-DB_DATA_TRUE$norm_sampSize=scale(DB_DATA_TRUE$sampSize,center=F)
+DB_DATA_TRUE$norm_agepaper=range01(DB_DATA_TRUE$agepaper)
+DB_DATA_TRUE$norm_sampSize=range01(DB_DATA_TRUE$sampSize)
 
-# aa=DB_DATA_TRUE$agepaper[which(DB_DATA_TRUE$agepaper<0)]
-# aa=2019-as.numeric(substr(aa,1,5))*-1
-# DB_DATA_TRUE$agepaper[which(DB_DATA_TRUE$agepaper<0)]=aa
 
 
 saveRDS(DB_DATA_TRUE,"data/DB_DATA_TRUE.rds")
@@ -206,17 +223,14 @@ saveRDS(BY_plant_occur,"data/BY_plant_occur.rds")
 
 # reload data
 
-data_occ=readRDS("data_occ.rds")
+data_occ=readRDS("data/data_occ.rds")
 DB_DATA_TRUE=readRDS("data/DB_DATA_TRUE.rds")
 temp_plan_raw=readRDS("data/template.rds")
 mycorank=readRDS("data/mycorank.rds")
 plantrank=readRDS("data/plantrank.rds")
 
-
-plants=unique(DB_DATA_TRUE$sampMatbased) # 14 
+plants=unique(DB_DATA_TRUE$sampMatbased) # 13 
 mycotoxins=unique(DB_DATA_TRUE$paramType) # mycotoxins
-
-
 
 ######################################################################################## 
 # create list for OCCURENCE data analisys
@@ -232,6 +246,7 @@ for (i in plants)  {
    for (j in mycotoxins) { temp_plant_myco=temp_plant[temp_plant$paramType==j,]
                          
                            id_data=unique(c(which(temp_plant_myco$meanTot>0),which(temp_plant_myco$Concentration>0)))
+                           
                            datavalid=as.numeric(c(temp_plant_myco$meanTot[which(temp_plant_myco$meanTot>0)],temp_plant_myco$Concentration[which(temp_plant_myco$Concentration>0)]))
                            
                          if (length(id_data)>5)  # criteria:  minimum  5 data valid
@@ -253,16 +268,48 @@ saveRDS(res_names,"data/res_names_min5.rds")
 saveRDS(res_pooled,"data/res_pooled_min5.rds")
 
 
+#########################################################################################################
 
+
+df_stats_valid=data.frame(plant_mycotoxins=unlist(res_names),do.call("rbind",lapply(res_pooled,summary_large)),do.call("rbind",lapply(res_tot,function(x) {paste(as.character(unique(x$Ref_unique)),collapse = ", ")})))
+
+file.remove("data/mycotoxins_stats_valid.xls")
+
+XLConnect::writeWorksheetToFile("data/mycotoxins_stats_valid.xls",df_stats_valid,"tab_stats")
+
+
+#########################################################################################################
+
+plant_myco_db=read.csv(textConnection(gsub("_",",",unlist(res_names))),header=F)
+names(plant_myco_db)=c("plants","mycotoxins")
+
+plant_myco_db$ndata_valid=unlist(lapply(res_pooled,length))
+plant_myco_db$nrecords=unlist(lapply(res_tot,nrow))
+
+summ_dimensions=data.frame(rbind(
+  summ_nrecords=summary_large(plant_myco_db$nrecords),
+  summ_nvalid=summary_large(plant_myco_db$ndata_valid),
+  summ_pvalid=summary_large(plant_myco_db$ndata_valid/plant_myco_db$nrecords),
+  summ_cv=summary_large(unlist(lapply(res_pooled,function(x){ sd(as.numeric(x), na.rm=TRUE)/mean(as.numeric(x), na.rm=TRUE)}))),
+  summ_pnormality=summary_large(unlist(lapply(res_pooled,function(x) ifelse(shapiro.test(as.numeric(x))$p.value>0.05,1,0)))),
+  summ_psampSize=summary_large(unlist(lapply(res_tot,function(x) mean(x$sampSize,na.rm=T)))),
+  summ_p_bibintensity=summary_large(unlist(lapply(res_tot,function(x) length(unique((x$Ref_unique)))))),
+  summ_p_havebounds=summary_large(unlist(lapply(res_tot,function(x) mean(x$havebounds))))))
+summ_dimensions$par=row.names(summ_dimensions)
+summ_dimensions=summ_dimensions[c("par",names(summ_dimensions)[2:16])]
+saveRDS(summ_dimensions,"data/summ_dimensions.rds")
+file.remove("data/DATA_summary_by_dimensions.xls")
+XLConnect::writeWorksheetToFile("data/DATA_summary_by_dimensions.xls",summ_dimensions,"table par dimensions")
+
+
+#########################################################################################################
+# WORKING on OCCURENCE BIBLIOMETRICS
 # reload data
 
 res_tot=readRDS("data/res_tot_min5.rds")
 res_data=readRDS("data/res_data_min5.rds")
 res_names=readRDS("data/res_names_min5.rds")
 res_pooled=readRDS("data/res_pooled_min5.rds")
-
-#########################################################################################################
-# WORKING on OCCURENCE BIBLIOMETRICS
 
 plant_myco_db=read.csv(textConnection(gsub("_",",",unlist(res_names))),header=F)
 names(plant_myco_db)=c("plants","mycotoxins")
@@ -297,6 +344,8 @@ XLConnect::writeWorksheetToFile("data/mycotoxins_score_5_updated.xls",plant_myco
 
 
 list_reliable_myco5=data.frame(name=unlist(res_names),ndata=unlist(lapply(res_data, nrow)))
+file.remove("data/mycotoxins_info.xls")
+
 XLConnect::writeWorksheetToFile("data/mycotoxins_info.xls",list_reliable_myco5,"combo_n5")
 
 
@@ -328,7 +377,6 @@ saveRDS(res_occ_plants,"data/res_occ_plants_fin.rds")
 
 ########################################################################################################
 # WORKING ON DATA LIST FOR ALL CO-OCCURENCE DATA
-
 
 res_tot_occ=list()
 res_data_occ=list()
@@ -550,20 +598,20 @@ plant_myco_db_occ$data=do.call("rbind",resls)
 #########################################################################################################################################
 
 
-file.remove("data/mycotoxins_co_occurencetable_fin.xls")
+file.remove("data/mycotoxins_co_occurence_ONEtable_fin.xls")
 
-XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurencetable_fin.xls",plant_myco_db_occ,"table data co-occurence")
+XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_ONEtable_fin.xls",plant_myco_db_occ,"table data co-occurence")
 
 
  
-file.remove("data/mycotoxins_co_occurence_fin.xls")
+file.remove("data/mycotoxins_co_occurence_MULTItable_fin.xls")
 
 plant_myco_db_occ_ls=split(plant_myco_db_occ,as.factor(paste(plant_myco_db_occ$plants,plant_myco_db_occ$mycotoxins)))
 
 
 
 for ( i in seq_along(plant_myco_db_occ_ls)) {
-                                    XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_fin.xls",plant_myco_db_occ_ls[[i]],gsub(":"," ",names(plant_myco_db_occ_ls)[i]))
+                                    XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_MULTItable_fin.xls",plant_myco_db_occ_ls[[i]],gsub(":"," ",substr(names(plant_myco_db_occ_ls)[i],1,15)))
 
 }
 

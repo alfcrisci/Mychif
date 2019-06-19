@@ -16,8 +16,8 @@ res_tot=readRDS("data/res_tot_min5.rds")
 res_data=readRDS("data/res_data_min5.rds")
 res_names=readRDS("data/res_names_min5.rds")
 res_pooled=readRDS("data/res_pooled_min5.rds")
-plant_myco_db=readRDS("hdata/plant_myco_db.rds")
-plant_myco_db_occ=readRDS("data/plant_myco_db_occ.rds")
+plant_myco_db=readRDS("data/plant_myco_db.rds")
+plant_myco_db_occ=readRDS("data/plant_myco_db_occ_tot.rds")
 
 #########################################################################################################
 # filtering by general final bibliometrics score
@@ -59,13 +59,29 @@ pheatmap(data, color = col.pal2,cluster_rows = F,
          )
 }
 
+mycotoxs =unique(as.character(plant_myco_db_sel$mycotoxins))
+for ( j in 1:length(mycotoxs)) {
+  
+  data=subset(plant_myco_db_sel,mycotoxins==mycotoxs[1])[,c(1,5:7,9:12)]
+  row.names(data)=data$plants
+  data=data[,2:length(data)]
+  pheatmap(data, color = col.pal2,cluster_rows = F, 
+           cluster_cols = F,
+           angle_col=0,
+           border_color="gray",
+           cellwidth = 60, cellheight = 30,
+           main=paste("Heatmap  of ",as.character(mycotoxs[j])),
+           filename = paste0("Heatmap_",as.character(mycotoxs[j]),".png")
+  )
+}
+
+
 
 ######################################################################################
 # Plotting distrib fits
 
 plant_myco_db_sel$check_names=unlist(res_names[index])
 plant_myco_db_sel[,c(1:2,14)] # check only
-
 res_dists=list()
 res_dists_names=list()
 res_summary=list()
@@ -144,13 +160,22 @@ names(resdf)=c("Planttox","Type_distrib","Namepar_1","Namepar_2","Valpar_1","Val
 
 table_describe=data.frame(PlantTox=unlist(res_names[index]),do.call("rbind",res_summary))
 
-file.remove("PlantTox_select_score.xls")
-XLConnect::writeWorksheetToFile("PlantTox_select_score.xls",plant_myco_db_sel,"data_bib_scores")
-XLConnect::writeWorksheetToFile("PlantTox_select_score.xls",resdf,"Fit stasts")
-XLConnect::writeWorksheetToFile("PlantTox_select_score.xls",table_describe,"data summaries")
-file.remove("PlantTox_full_score.xls")
-XLConnect::writeWorksheetToFile("PlantTox_full_score.xls",plant_myco_db,"data_bib_scores fiveD")
+file.remove("data/PlantTox_select_score.xls")
+XLConnect::writeWorksheetToFile("data/PlantTox_select_score.xls",plant_myco_db_sel,"data_bib_scores")
+XLConnect::writeWorksheetToFile("data/PlantTox_select_score.xls",resdf,"Fit stasts")
+XLConnect::writeWorksheetToFile("data/PlantTox_select_score.xls",table_describe,"data summaries")
+file.remove("data/PlantTox_full_score.xls")
+XLConnect::writeWorksheetToFile("data/PlantTox_full_score.xls",plant_myco_db,"data_bib_scores fiveD")
 
+plant_sel=c("barley","cereals","maize","oat","rice","rye","wheat")
+
+png("images/boxplot_occurence_score_GEN.png")
+bwplot(scoreGEN~plants, data =plant_myco_db[which(plant_myco_db$plants %in%  plant_sel ==T),])
+dev.off()
+
+png("images/boxplot_co_occurenze_score_GEN.png")
+bwplot(scoreGEN~plants, data =plant_myco_db_occ[which(plant_myco_db_occ$plants %in%  plant_sel ==T),])
+dev.off()
 
 #############################################################################################################################################
 # @references
