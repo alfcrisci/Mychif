@@ -55,14 +55,15 @@ pheatmap(data, color = col.pal2,cluster_rows = F,
          border_color="gray",
          cellwidth = 60, cellheight = 30,
          main=paste("Heatmap  of ",firstup(names(plant_myco_db_sel)[i])),
-         filename = paste0("Heatmap_",as.character(names(plant_myco_db_sel)[i]),".png")
+         fontsize_row=10
+         #filename = paste0("Heatmap_",as.character(names(plant_myco_db_sel)[i]),".png")
          )
 }
 
 mycotoxs =unique(as.character(plant_myco_db_sel$mycotoxins))
 for ( j in 1:length(mycotoxs)) {
   
-  data=subset(plant_myco_db_sel,mycotoxins==mycotoxs[1])[,c(1,5:7,9:12)]
+  data=subset(plant_myco_db_sel,mycotoxins==mycotoxs[j])[,c(1,5:7,9:12)]
   row.names(data)=data$plants
   data=data[,2:length(data)]
   pheatmap(data, color = col.pal2,cluster_rows = F, 
@@ -71,6 +72,8 @@ for ( j in 1:length(mycotoxs)) {
            border_color="gray",
            cellwidth = 60, cellheight = 30,
            main=paste("Heatmap  of ",as.character(mycotoxs[j])),
+           fontsize=8,
+           height=3,
            filename = paste0("Heatmap_",as.character(mycotoxs[j]),".png")
   )
 }
@@ -121,8 +124,8 @@ out=ggarrange(ds, qq, cd,pp + rremove("x.text"), ncol = 2, nrow = 2)
 
 options(warn=0)
 
-ggsave(outfilepdf,plot=out,device="pdf")
-ggsave(outfilepng,plot=out,device="png")
+ggsave(outfilepdf,plot=out, width = 8, height = 7,device="pdf")
+ggsave(outfilepng,plot=out, width = 8, height = 7,device="png")
 
 #######################################################
 res_dists_names[[z]]=idlist
