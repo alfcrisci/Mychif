@@ -2,7 +2,7 @@
 # Setup working directory
 
 setwd("")
-
+setwd("/home/alf/Scrivania/lav_michyf/repo/Mychif/occurence")
 ##############################################################################################################################
 # Load libraries & functions . Check if packages was installed.
 
@@ -124,8 +124,8 @@ out=ggarrange(ds, qq, cd,pp + rremove("x.text"), ncol = 2, nrow = 2)
 
 options(warn=0)
 
-ggsave(outfilepdf,plot=out, width = 8, height = 7,device="pdf")
-ggsave(outfilepng,plot=out, width = 8, height = 7,device="png")
+#ggsave(outfilepdf,plot=out, width = 8, height = 7,device="pdf")
+#ggsave(outfilepng,plot=out, width = 8, height = 7,device="png")
 
 #######################################################
 res_dists_names[[z]]=idlist
@@ -151,9 +151,11 @@ names(res_dists)=NULL
 list_results=do.call(c, res_dists)
 list_results_type=do.call(c,res_dists_names)
 
-resdf=data.frame(c(names_dist[1],names_dist),c(list_results_type[1],list_results_type),do.call("rbind",lapply(list_results,function(x) names(x$estimate))),
-           do.call("rbind",lapply(list_results,function(x) as.numeric(x$estimate))),
-           do.call("rbind",lapply(list_results,function(x) c(x$aic,x$bic)))
+resdf=data.frame(plant_myco_db_sel[as.numeric(c(names_dist)),c("check_names")],
+                 c(list_results_type),
+                 do.call("rbind",lapply(list_results,function(x) names(x$estimate))),
+                 do.call("rbind",lapply(list_results,function(x) as.numeric(x$estimate))),
+                 do.call("rbind",lapply(list_results,function(x) c(x$aic,x$bic)))
           )
 
 names(resdf)=c("Planttox","Type_distrib","Namepar_1","Namepar_2","Valpar_1","Valpar_2","AIC","BIC")
