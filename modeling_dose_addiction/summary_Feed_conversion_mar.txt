@@ -1,0 +1,21 @@
+
+Model fitted: Shifted asymptotic regression (3 parms)
+
+Parameter estimates:
+
+             Estimate Std. Error  t-value   p-value    
+c:AF & OTA   1.880309   0.007382 254.7151 < 2.2e-16 ***
+c:AF         0.767139   0.209163   3.6677 0.0002512 ***
+c:OTA        1.847813   0.081251  22.7420 < 2.2e-16 ***
+d:AF & OTA  39.327137  23.969177   1.6407 0.1010098    
+d:AF         2.388938   0.011535 207.1042 < 2.2e-16 ***
+d:OTA        2.289962   0.019635 116.6245 < 2.2e-16 ***
+e:AF & OTA 381.164101 245.693996   1.5514 0.1209702    
+e:AF         0.364111   0.036279  10.0364 < 2.2e-16 ***
+e:OTA        1.254657   0.325388   3.8559 0.0001190 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error:
+
+ 0.1345032 (1991 degrees of freedom)

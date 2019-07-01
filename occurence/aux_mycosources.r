@@ -1,5 +1,5 @@
 summary_large=function(x) {data.frame(c(pastecs::stat.desc(as.numeric(x)),
-                                        data.frame(skew=as.numeric(psych::describe(res_pooled[[10]]))[11],
+                                        data.frame(skew=as.numeric(psych::describe((x)))[11],
                                                    kurtosis=as.numeric(psych::describe(x))[12])))
 }
 
