@@ -4,7 +4,7 @@ library(doBy)
 library(XLConnect)
 library(ggplot2)
 
-setwd("/home/alf/Scrivania/lav_michyf/lav_PDI")
+setwd("/home/alf/Scrivania/lav_michyf/lav_PDI/adults")
 
 micotoxins=excel_sheets("biomarcatori_PDI.xlsx")
 
@@ -229,6 +229,42 @@ res_pdi_FB[[1]]=as.numeric(c(t.test(temp_PDI)$estimate,t.test(temp_PDI)$conf.int
 df_pdi_FB=data.frame(name="FB_tot",do.call("rbind",res_pdi_FB))
 names(df_pdi_FB) [2:4]=c("mean","conf.int.inf","conf.int.sup")
 
+######################################################################################################
+
+EZEN=9.4 # (range 7-13.2) Excretion rate (Warth, 2013)
+
+ZEN_data=as.data.frame(read_excel("biomarcatori_PDI_2.xlsx",4))
+names(ZEN_data)[5]=c("biomark")
+Full_mat_ZEN=ZEN_data
+data_ZEN_ls=list()
+data_ZEN_ls$data_ZEN_tot=as.numeric(na.omit(Full_mat_ZEN$biomark))
+saveRDS(data_ZEN_ls,"data_ZEN_ls.rds")
+
+
+
+res_ZEN=list(
+  ZEN_tot=fitdist(data_ZEN_ls$data_ZEN_tot,"norm"),
+  ZEN_tot_e=fitdist(data_ZEN_ls$data_ZEN_tot,"exp")
+)
+
+
+df_res_ZEN=data.frame(names="ZEN_tot",do.call("rbind",lapply(res_ZEN,FUN=sumfit)))
+row.names(df_res_ZEN)=NULL
+
+
+png(paste0("ZEN_tot.png"))
+denscomp(res_ZEN[c(1,2)],legendtext = c("Normal", "Exponential"),
+         main = "Fitting ZEN biomarker full data", xlab = "microg/L")
+
+dev.off()
+
+res_pdi_ZEN=list()
+
+temp_PDI=sapply(rexp(10000,df_res_ZEN$par[2]),FUN=function(x){ pdi_func(x,escr = mean(EZEN))})
+res_pdi_ZEN[[1]]=as.numeric(c(t.test(temp_PDI)$estimate,t.test(temp_PDI)$conf.int))
+
+df_pdi_ZEN=data.frame(name="ZEN_tot",do.call("rbind",res_pdi_ZEN))
+names(df_pdi_ZEN) [2:4]=c("mean","conf.int.inf","conf.int.sup")
 
 ####################################################################################
 # OTA analisys
@@ -272,9 +308,47 @@ names(df_pdi_OTA) [2:4]=c("mean","conf.int.inf","conf.int.sup")
 
 ##############################################################################################################################
 
+EZEN=9.4
+#% (range 7-13.2) Excretion rate (Warth, 2013)
+ZEN_data=as.data.frame(read_excel("biomarcatori_PDI.xlsx",5))
+names(ZEN_data)[5]=c("biomark")
+Full_mat_ZEN=ZEN_data
+data_ZEN_ls=list()
+data_ZEN_ls$data_ZEN_tot=as.numeric(na.omit(Full_mat_ZEN$biomark))
+saveRDS(data_ZEN_ls,"data_ZEN_ls.rds")
 
-temp=rbind(df_pdi_DON,df_pdi_AFM1,df_pdi_FB,df_pdi_OTA)
-temp_fit=rbind(df_res_DON,df_res_AFM1,df_res_FB,df_res_OTA)
+
+
+res_ZEN=list(
+  ZEN_tot=fitdist(data_ZEN_ls$data_ZEN_tot,"norm"),
+  ZEN_tot_e=fitdist(data_ZEN_ls$data_ZEN_tot,"exp")
+)
+
+
+df_res_ZEN=data.frame(names="ZEN_tot",do.call("rbind",lapply(res_ZEN,FUN=sumfit)))
+row.names(df_res_ZEN)=NULL
+
+
+png(paste0("ZEN_tot.png"))
+denscomp(res_ZEN[c(1,2)],legendtext = c("Normal", "Exponential"),
+         main = "Fitting ZEN biomarker full data", xlab = "microg/L")
+
+dev.off()
+
+res_pdi_ZEN=list()
+
+temp_PDI=sapply(rexp(10000,df_res_ZEN$par[2]),FUN=function(x){ pdi_func(x,escr = mean(EZEN))})
+res_pdi_ZEN[[1]]=as.numeric(c(t.test(temp_PDI)$estimate,t.test(temp_PDI)$conf.int))
+
+df_pdi_ZEN=data.frame(name="ZEN_tot",do.call("rbind",res_pdi_ZEN))
+names(df_pdi_ZEN) [2:4]=c("mean","conf.int.inf","conf.int.sup")
+
+
+##############################################################################################################################
+
+
+temp=rbind(df_pdi_DON,df_pdi_AFM1,df_pdi_FB,df_pdi_OTA,df_pdi_ZEN)
+temp_fit=rbind(df_res_DON,df_res_AFM1,df_res_FB,df_res_OTA,df_res_ZEN)
 
 file.remove("PDI_stat.xls")
 XLConnect::writeWorksheetToFile("PDI_stat.xls",temp,"PDI")
