@@ -2,9 +2,8 @@
 # Setup working directory
 
 setwd("")
-setwd("/home/alf/Scrivania/lav_michyf/repo/Mychif/occurence")
 ##############################################################################################################################
-# Load libraries & functions . Check if packages was installed.
+# Load libraries & functions . Check if packages were previously installed.
 
 source("load_lib.r")
 source("aux_mycosources.r")
@@ -55,12 +54,13 @@ pheatmap(data, color = col.pal2,cluster_rows = F,
          border_color="gray",
          cellwidth = 60, cellheight = 30,
          main=paste("Heatmap  of ",firstup(names(plant_myco_db_sel)[i])),
-         fontsize_row=10
-         #filename = paste0("Heatmap_",as.character(names(plant_myco_db_sel)[i]),".png")
+         fontsize_row=10,
+         filename = paste0("Heatmap_",as.character(names(plant_myco_db_sel)[i]),".png")
          )
 }
 
 mycotoxs =unique(as.character(plant_myco_db_sel$mycotoxins))
+
 for ( j in 1:length(mycotoxs)) {
   
   data=subset(plant_myco_db_sel,mycotoxins==mycotoxs[j])[,c(1,5:7,9:12)]
