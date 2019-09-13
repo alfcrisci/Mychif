@@ -136,6 +136,7 @@ df_maize_gg$freq_100=df_maize_gg$freq_100/3
 my3cols <- c("#E7B800", "#2E9FDF", "#FC4E07")
 p=ggplot(df_maize_gg) + geom_col(aes(x = References, y = value, fill = Mycotoxin), position = "stack")+ theme(legend.position="bottom")+ scale_x_discrete(labels=id)+theme(axis.text.x =blue.plain.8.text,legend.text=element_text(size=8))+
   labs(title = "Maize Co-occurence mycotoxins",y="Concentrations",x="")
+
 g <-ggplot(df_maize_gg, aes(x=References,y=freq_100, fill = Co_occurence)) + geom_bar(stat="identity")+ theme(legend.position="top")+theme(axis.text.x = element_blank(),legend.text=element_text(size=8))+scale_fill_manual(values=my3cols)+labs(y="Data Freq (%)",x="References")
 a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
 

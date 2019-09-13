@@ -21,6 +21,8 @@ library(fitdistrplus)
 
 ######################################################################################
 # devtools::install_github("nanhung/pksensi")
+# devtools::install_github("nanhung/pksensi")
+# devtools::install_github("nanhung/pksensi")
 
 library(sensitivity) # Sensitivity Analysis 
 library(pksensi) # Global Sensitivity Analysis in Pharmacokinetic Modeling 
@@ -37,7 +39,7 @@ library(shinydashboard)
 # Set working directory
 ################################################################################################################################################################
 
-setwd("/home/alf/Scrivania/lav_michyf/parma_meetings/pbkm_animals")
+setwd("/home/alf/Scrivania/lav_michyf/repositories/Mychif/pbkm_modeling")
 
 source("R_code/PBPK_aux.R")
 source("R_code/PBTK_model_core.R")
@@ -88,13 +90,15 @@ t <- seq(0, 24, 0.01)
 C <-FFPK(params = params, time = t,dose=100)
 res=PKPDmisc::nca(t, C, dose=100, last_times = c(3, 4, 5), digits = 2)
 
-plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microL/kg", main="PK 1cmpt Pig DON \nSaint-Cyr et al 2015")
+png("case_a.png")
+plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="PK 1cmpt Pig DON \nSaint-Cyr et al 2015")
 text(15,15,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
                          "half_life= ",res$half_life," h\n"),col="red")
 
+dev.off()
 
 TK$kabs[which(TK$species==species & TK$chemical==chemical)]=kabs_don
 TK$Cl_renal[which(TK$species==species & TK$chemical==chemical)]=0.00001
@@ -116,7 +120,8 @@ source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list c
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microL/L", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
+
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
@@ -126,7 +131,9 @@ text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration mg/kg", main="TD Pig multicmpt wholebody ven DON \nSaint-Cyr et al 2015")
+
+
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt wholebody  DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -154,15 +161,18 @@ E_dose <-0.075*41*0.986                 # Single dose mg
 params <- c(F = F_dose, KA = kabs_don*60, KE = kel_don*60, V = Vd_don)  
 t <- seq(0, 24, 0.01)
 C <-FFPK(params = params, time = t,dose=75)
+
 plot(t, C, type = "l", xlab = "Hours", ylab = "DON concentration")
 res=PKPDmisc::nca(t, C, dose=75, last_times = c(3, 4, 5), digits = 2)
 
-plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microL/kg", main="PK 1cmpt Pig DON \nPaulick et al 2015")
+png("case_b.png")
+plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="PK 1cmpt Pig DON \nPaulick et al 2015")
 text(15,18,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
                          "half_life= ",res$half_life," h\n"),col="red")
+dev.off()
 
 TK$kabs[which(TK$species==species & TK$chemical==chemical)]=kabs_don
 TK$Cl_renal[which(TK$species==species & TK$chemical==chemical)]=0.0001
@@ -181,11 +191,13 @@ t_start <- 0                  # start of simulation (h)
 t_end <- 24                   # end of simulation (h)
 
 source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list corresponding nsim simulation
+
 # case_b_blood_TD.png
+
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microL/L", main="TD Pig multicmpt blood ven DON \nPaulick et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt blood ven DON \nPaulick et al 2015")
 text(15,10,labels=paste0("Dose=75 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -196,7 +208,7 @@ text(15,10,labels=paste0("Dose=75 μg/kg BW\n",
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration mg/kg", main="TD Pig multicmpt wholebody ven DON \nPaulick et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt wholebody  DON \nPaulick et al 2015")
 text(15,8,labels=paste0("Dose=75 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -286,15 +298,21 @@ E_dose <-1.2*1.56*F_dose                    # Single dose mg
 params <- c(F = F_dose, KA = kabs_zea*60, KE = kel_zea*60, V = Vd_zea/F_dose)  
 t <- seq(0, 24, 0.01)
 C <-FFPK(params = params, time = t,dose=1200)
+
 plot(t, C, type = "l", xlab = "Hours", ylab = "ZEA concentration")
 res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
 
-plot(t, C, type = "l",xlab = "Hours", ylab = "ZEA concentration μL/kg", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
+
+png("case_d.png")
+
+plot(t, C, type = "l",xlab = "Hours", ylab = "ZEA concentration microg/l", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
 text(15,4,labels=paste0("Dose=1200 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
                          "half_life= ",res$half_life," h\n"),col="red")
+
+dev.off()
 
 
 BW_animal=1.56                             # kg
@@ -322,7 +340,7 @@ source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list c
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*(1000)
 res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration μL/kg", main="TD Chicken  multicmpt blood ven ZEN \nBuranatragool et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration microg/l", main="TD Chicken  multicmpt blood ven ZEN \nBuranatragool et al 2015")
 text(18,80,labels=paste0("Dose=1200 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
@@ -334,7 +352,7 @@ text(18,80,labels=paste0("Dose=1200 μg/kg BW\n",
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration μL/kg", main="TD Chicken multicmpt  wholebody ven ZEN \nBuranatragool et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration microg/l", main="TD Chicken multicmpt  wholebody ven ZEN \nBuranatragool et al 2015")
 text(15,200,labels=paste0("Dose=1200 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",

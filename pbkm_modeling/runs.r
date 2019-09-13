@@ -3,21 +3,29 @@ library(fitdistrplus)
 ######################################################################################
 
 library(httk) # High-Throughput Toxicokinetics 
+library(sensitivity) # Sensitivity Analysis 
 
 ######################################################################################
+
 # devtools::install_github("nanhung/pksensi")
 
-library(sensitivity) # Sensitivity Analysis 
 library(pksensi) # Global Sensitivity Analysis in Pharmacokinetic Modeling Hsieh 2018
-library(PK) # Basic Non-Compartmental Pharmacokinetics
+
+library(PK) # Basic Non-Compartmental Pharmacokinetics https://cran.r-project.org/web/packages/PK/index.html
+
+#devtools::install_github("dpastoor/PKPDmisc")
+
 library(PKPDmisc) # Pharmacokinetic and Pharmacodynamic Data Management Functions
 
 ######################################################################################
 # http://pkpdsim.ronkeizer.com/ https://github.com/InsightRX/PKPDsim
 
+# devtools::install_github("InsightRX/PKPDsim")
+
 library(PKPDsim) # Simulate dose regimens for PKPD models described by ODE or equation 
 
-library(PKPDsimShiny) # 
+#devtools::install_github("ronkeizer/PKPDsimShiny")
+library(PKPDsimShiny) #  
 
 #######################################################################################################àà
 
