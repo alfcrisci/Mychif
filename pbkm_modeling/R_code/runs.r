@@ -25,6 +25,7 @@ library(PKPDmisc) # Pharmacokinetic and Pharmacodynamic Data Management Function
 library(PKPDsim) # Simulate dose regimens for PKPD models described by ODE or equation 
 
 #devtools::install_github("ronkeizer/PKPDsimShiny")
+
 library(PKPDsimShiny) #  
 
 #######################################################################################################àà
@@ -267,7 +268,6 @@ library(PKPDsim)
 library(PKPDsimShiny)
 library(shinythemes)
 
-setwd("/home/alf/Scrivania/lav_michyf/parma_meetings/pbkm_animals")
 
 p <- list(CL = 1, V  = 10, KA = 0.5)
 pk1 <- new_ode_model("pk_1cmt_oral")
