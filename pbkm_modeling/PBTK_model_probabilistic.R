@@ -18,28 +18,26 @@ library(XLConnect)
 
 library(httk)  
 library(fitdistrplus)
-
-######################################################################################
-# devtools::install_github("nanhung/pksensi")
-# devtools::install_github("nanhung/pksensi")
-# devtools::install_github("nanhung/pksensi")
-
 library(sensitivity) # Sensitivity Analysis 
-library(pksensi) # Global Sensitivity Analysis in Pharmacokinetic Modeling 
 library(PK) # Basic Non-Compartmental Pharmacokinetics
 library(PKPDmisc) # Pharmacokinetic and Pharmacodynamic Data Management Functions
-
-######################################################################################
-
-library(PKPDsim) # Simulate dose regimens for PKPD models described by ODE or equatino
-library(PKPDsimShiny) # 
 library(shiny)
 library(shinydashboard)
+
+######################################################################################
+# devtools::install_github("nanhung/pksensi")
+# devtools::install_github("InsightRX/PKPDsim")
+# devtools::install_github("ronkeizer/PKPDsimShiny")
+
+
+library(pksensi) # Global Sensitivity Analysis in Pharmacokinetic Modeling 
+library(PKPDsim) # Simulate dose regimens for PKPD models described by ODE or equatino
+library(PKPDsimShiny) # 
+
 ################################################################################################################################################################
 # Set working directory
 ################################################################################################################################################################
 
-setwd("/home/alf/Scrivania/lav_michyf/repositories/Mychif/pbkm_modeling")
 
 source("R_code/PBPK_aux.R")
 source("R_code/PBTK_model_core.R")
