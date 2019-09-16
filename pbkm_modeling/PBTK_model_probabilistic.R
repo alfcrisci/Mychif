@@ -119,24 +119,34 @@ t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
 
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/l", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
+png("case_a_blood_TD.png",800,500)
+
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
                          "half_life= ",res$half_life," h\n"),col="red")
 
+dev.off()
+
+
+
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
 
 
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/l", main="TD Pig multicmpt wholebody  DON \nSaint-Cyr et al 2015")
+png("case_a_wholebody_TD.png",800,500)
+
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/Kg", main="TD Pig multicmpt wholebody  DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
                         "Tmax= ",res$Tmax," h\n",
                         "half_life= ",res$half_life," h\n"),col="red")
+dev.off()
+
 
 #################################################################################################################
 # Paulick et al 75 μg/kg BW
@@ -192,6 +202,8 @@ source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list c
 
 # case_b_blood_TD.png
 
+png("case_b_blood_TD.png",800,500)
+
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
@@ -201,18 +213,23 @@ text(15,10,labels=paste0("Dose=75 μg/kg BW\n",
                         "Cmax= ",res$Cmax,"\n",
                         "Tmax= ",res$Tmax," h\n",
                         "half_life= ",res$half_life," h\n"),col="red")
+
+dev.off()
+
 # case_b_body_TD.png
+png("case_b_wholebody_TD.png",800,500)
 
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="TD Pig multicmpt wholebody  DON \nPaulick et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/Kg", main="TD Pig multicmpt wholebody  DON \nPaulick et al 2015")
 text(15,8,labels=paste0("Dose=75 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
                         "Tmax= ",res$Tmax," h\n",
                         "half_life= ",res$half_life," h\n"),col="red")
 
+dev.off()
 
 # file.remove(paste("./Output/SimRes_",idsim,".xls",sep=""))
 # writeWorksheetToFile(paste("./Output/SimRes_",idsim,".xls",sep=""), data_blood, sheet=paste0("blood_",idsim))
@@ -289,6 +306,8 @@ TK$fbact[which(TK$species==species & TK$chemical==chemical)]=0
 fBW$BW[which(fBW$species==species)]=BW_animal
 fBW$BW_sd[which(fBW$species==species)]=BW_SD
 
+# source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list corresponding nsim simulation
+
 #################################################################################################################
 # Buranatragool et al 2015 1.2 mg/kg of bw
 
@@ -296,7 +315,7 @@ idsim="chicken_ZEN"
 species <- "chicken"                      # cat/cattle/chicken/sheep/swine
 chemical <- "ZEN"                          # for now: chlorpyrifos/melamine/meloxicam/monensin/oxytetracycline/PFOS
 
-F_dose=0.26
+F_dose=0.29
 BW_animal=1.56                             # kg
 BW_SD=2.32                                 # kg standard deviation
 Vd_zea=6.40                                # ± 0.89 l/kg
@@ -318,7 +337,7 @@ res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
 
 png("case_d.png",800,500)
 
-plot(t, C*1000, type = "l",xlab = "Hours", ylab = "ZEA concentration ng/l", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
+plot(t, C*1000, type = "l",xlab = "Hours", ylab = "ZEA concentration ng/L", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
 text(15,2,labels=paste0("Dose=1.2 mg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
@@ -330,19 +349,19 @@ dev.off()
 
 BW_animal=1.56                             # kg
 BW_SD=0                                    # kg standard deviation
-E_dose <-1.2*1.56                          # Single dose mg
+E_dose <-1.2*1.56                         # Single dose mg
 
 TK$kabs[which(TK$species==species & TK$chemical==chemical)]=kabs_zea
-TK$Cl_renal[which(TK$species==species & TK$chemical==chemical)]=(Cl_zea*F_dose)/60
-TK$Cl_hepatic[which(TK$species==species & TK$chemical==chemical)]=0
+TK$Cl_renal[which(TK$species==species & TK$chemical==chemical)]=0.34/60
+TK$Cl_hepatic[which(TK$species==species & TK$chemical==chemical)]=0.34/60
 TK$fbact[which(TK$species==species & TK$chemical==chemical)]=0
 fBW$BW[which(fBW$species==species)]=BW_animal
 fBW$BW_sd[which(fBW$species==species)]=BW_SD
 
 n_sim  <- 1                         # number of iterations
 E_start <- 0                        # start of exposure phase (h)
-E_int <- 2                          # interval between doses (h); 
-E_end <- 1                          # end of exposure phase (h)
+E_int <- 80                          # interval between doses (h); 
+E_end <- 3                          # end of exposure phase (h)
 t_start <- 0                        # start of simulation (h)
 t_end <- 24                         # end of simulation (h)
 
@@ -353,25 +372,30 @@ source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list c
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*(1000)
 res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration microg/l", main="TD Chicken  multicmpt blood ven ZEN \nBuranatragool et al 2015")
+
+png("case_d_blood_TD.png",800,500)
+
+plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration ng/L", main="TD Chicken  multicmpt blood ven ZEN \nBuranatragool et al 2015")
 text(18,80,labels=paste0("Dose=1200 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
                          "half_life= ",res$half_life," h\n"),col="red")
-
+dev.off()
 # case_d_body_TD.png
+
+png("case_d_wholebody_TD.png",800,500)
 
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration microg/l", main="TD Chicken multicmpt  wholebody ven ZEN \nBuranatragool et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "ZEN concentration ng/Kg", main="TD Chicken multicmpt  wholebody ven ZEN \nBuranatragool et al 2015")
 text(15,200,labels=paste0("Dose=1200 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
                         "Tmax= ",res$Tmax," h\n",
                         "half_life= ",res$half_life," h\n"),col="red")
-
+dev.off()
 
 # file.remove(paste("./Output/SimRes_",idsim,".xls",sep=""))
 # writeWorksheetToFile(paste("./Output/SimRes_",idsim,".xls",sep=""), data_blood, sheet=paste0("blood_",idsim))
@@ -401,8 +425,8 @@ fBW$BW[which(fBW$species==species)]=BW_animal
 fBW$BW_sd[which(fBW$species==species)]=BW_SD
 
 n_sim  <- 1                         # number of iterations
-E_start <- 0                        # start of exposure phase (h)
-E_end <- 1                          # end of exposure phase (h)
+E_start <- 1                       # start of exposure phase (h)
+E_end <- 3                          # end of exposure phase (h)
 E_int <- 80                         # interval between doses (h); 
 t_start <- 0                        # start of simulation (h)
 t_end <- 24                         # end of simulation (h)
