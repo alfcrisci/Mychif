@@ -38,10 +38,10 @@ library(PKPDsimShiny) #
 # Set working directory
 ################################################################################################################################################################
 
+setwd("/home/alf/Scrivania/lav_michyf/repositories/Mychif/pbkm_modeling")
 
 source("R_code/PBPK_aux.R")
 source("R_code/PBTK_model_core.R")
-
 
 ############################################################################################################################
 # Loading physicochemical data
@@ -88,9 +88,9 @@ t <- seq(0, 24, 0.01)
 C <-FFPK(params = params, time = t,dose=100)
 res=PKPDmisc::nca(t, C, dose=100, last_times = c(3, 4, 5), digits = 2)
 
-png("case_a.png")
-plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="PK 1cmpt Pig DON \nSaint-Cyr et al 2015")
-text(15,15,labels=paste0("Dose=100 μg/kg BW\n",
+png("case_a.png",800,500)
+plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration μg/l", main="PK 1cmpt Pig DON \nSaint-Cyr et al 2015")
+text(17,17,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
@@ -119,7 +119,7 @@ t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
 
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/l", main="TD Pig multicmpt blood ven DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
@@ -131,7 +131,7 @@ C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
 
 
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt wholebody  DON \nSaint-Cyr et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/l", main="TD Pig multicmpt wholebody  DON \nSaint-Cyr et al 2015")
 text(15,2,labels=paste0("Dose=100 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -163,9 +163,9 @@ C <-FFPK(params = params, time = t,dose=75)
 plot(t, C, type = "l", xlab = "Hours", ylab = "DON concentration")
 res=PKPDmisc::nca(t, C, dose=75, last_times = c(3, 4, 5), digits = 2)
 
-png("case_b.png")
-plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="PK 1cmpt Pig DON \nPaulick et al 2015")
-text(15,18,labels=paste0("Dose=100 μg/kg BW\n",
+png("case_b.png",800,500)
+plot(t, C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="PK 1cmpt Pig DON \nPaulick et al 2015")
+text(16,20,labels=paste0("Dose=75 μg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
@@ -195,7 +195,7 @@ source("R_code/simrun_bolus_oral.r") # res_sims_body res_sims_blood Two R list c
 t=as.numeric(res_sims_blood[[1]][,1])
 C=as.numeric(res_sims_blood[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt blood ven DON \nPaulick et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="TD Pig multicmpt blood ven DON \nPaulick et al 2015")
 text(15,10,labels=paste0("Dose=75 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -206,7 +206,7 @@ text(15,10,labels=paste0("Dose=75 μg/kg BW\n",
 t=as.numeric(res_sims_body[[1]][,1])
 C=as.numeric(res_sims_body[[1]][,2])*1000
 res=PKPDmisc::nca(t, C, dose=E_dose*1000, last_times = c(3, 4, 5), digits = 2)
-plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration microg/l", main="TD Pig multicmpt wholebody  DON \nPaulick et al 2015")
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="TD Pig multicmpt wholebody  DON \nPaulick et al 2015")
 text(15,8,labels=paste0("Dose=75 μg/kg BW\n",
                         "F= ",F_dose*100,"%\n",
                         "Cmax= ",res$Cmax,"\n",
@@ -246,7 +246,7 @@ plot(test)
 
 #################################################################################################################
 # Osselaere et al
-# DON 0.75 mg/kg BW ( 5mg/kg feed max DON), T2 0.02 mg/kg BW and ZEN 0.3 mg/kg BW ( max 2mg/kg feed)
+# DON 0.75 mg/kg BW ( 5 mg/kg feed max DON), T2 0.02 mg/kg BW and ZEN 0.3 mg/kg BW ( max 2mg/kg feed)
 
 idsim="chicken_DON"
 species <- "chicken"                      # cat/cattle/chicken/sheep/swine
@@ -266,6 +266,21 @@ t <- seq(0, 24, 0.01)
 C <-FFPK(params = params, time = t,dose=720)
 plot(t, C, type = "l", xlab = "Hours", ylab = "DON concentration")
 PKPDmisc::nca(t, C, dose=100, last_times = c(3, 4, 5), digits = 2)
+
+
+png("case_c.png",800,500)
+plot(t,C, type = "l",xlab = "Hours", ylab = "DON concentration μg/L", main="PK 1cmpt Chicken DON \nOsselaere et al")
+
+text(14,1.4,labels=paste0("Dose=0.75 mg/kg BW\n",
+                        "F= ",F_dose*100,"%\n",
+                        "Cmax= ",res$Cmax,"\n",
+                        "Tmax= ",res$Tmax," h\n",
+                        "half_life= ",res$half_life," h\n"),col="red")
+
+dev.off()
+
+
+
 
 TK$kabs[which(TK$species==species & TK$chemical==chemical)]=kabs_don
 TK$Cl_renal[which(TK$species==species & TK$chemical==chemical)]=0
@@ -295,16 +310,16 @@ E_dose <-1.2*1.56*F_dose                    # Single dose mg
 
 params <- c(F = F_dose, KA = kabs_zea*60, KE = kel_zea*60, V = Vd_zea/F_dose)  
 t <- seq(0, 24, 0.01)
-C <-FFPK(params = params, time = t,dose=1200)
+C <-FFPK(params = params, time = t,dose=E_dose)
 
 plot(t, C, type = "l", xlab = "Hours", ylab = "ZEA concentration")
-res=PKPDmisc::nca(t, C, dose=1200, last_times = c(3, 4, 5), digits = 2)
+res=PKPDmisc::nca(t, C, dose=E_dose, last_times = c(3, 4, 5), digits = 2)
 
 
-png("case_d.png")
+png("case_d.png",800,500)
 
-plot(t, C, type = "l",xlab = "Hours", ylab = "ZEA concentration microg/l", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
-text(15,4,labels=paste0("Dose=1200 μg/kg BW\n",
+plot(t, C*1000, type = "l",xlab = "Hours", ylab = "ZEA concentration ng/l", main="PK 1cmpt Chicken Zea\nBuranatragool et al 2015")
+text(15,2,labels=paste0("Dose=1.2 mg/kg BW\n",
                          "F= ",F_dose*100,"%\n",
                          "Cmax= ",res$Cmax,"\n",
                          "Tmax= ",res$Tmax," h\n",
@@ -483,6 +498,8 @@ E_start <- 0                        # start of exposure phase (h)
 E_end <- 3                          # end of exposure phase (h)
 E_int <- 80                         # interval between doses (h); only relevant when regime="bolus" or iv
 
+
+#################################################################################################################################################
 # Simulation parameters
 
 A_type <- "VA"                # type of probabilistic analysis ("SA" or "VA")
@@ -492,7 +509,6 @@ n_out  <- 2                   # number of compartments to output (blood, total b
 t_start <- 0                  # start of simulation (h)
 t_end <- 12                   # end of simulation (h)
 t_A <- c(seq(0.05,0.2,by=0.05),seq(0.25,t_end,by=0.25))     # all time points for analysis (h), only relevant when chem_fix=TRUE
-
 
 #################################################################################################################################################
 # Set up
@@ -509,6 +525,7 @@ if (chem_fix) {sim_data=na.omit(t(rbind(SimRes,t_A)))
                # file.remove(paste("./Output/SimRes_",idsim,".xls",sep=""))
                # writeWorksheetToFile(paste("./Output/SimRes_",idsim,".xls",sep=""), data_body, sheet=paste0("body_",idsim))
 }
+
 # saveRDS(res_sims,paste("./Output/SimRes_",idsim,".rds",sep=""))
 
 ##############################################################################################################################
