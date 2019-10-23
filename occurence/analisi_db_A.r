@@ -325,10 +325,10 @@ plant_myco_db$p_normality=unlist(lapply(res_pooled,function(x) ifelse(shapiro.te
 plant_myco_db$p_sampsize=range01(unlist(lapply(res_tot,function(x) mean(x$norm_sampSize,na.rm=T))))
 plant_myco_db$p_agepaper=range01(scale(unlist(lapply(res_tot,function(x) mean(x$norm_agepaper,na.rm=T))),center=F))
 plant_myco_db$p_bibintensity=range01(scale(unlist(lapply(res_tot,function(x) length(unique((x$Ref))))),center = F))
-
 real_value_bibintensity=unlist(lapply(res_tot,function(x) length(unique((x$Ref)))))
 min_max_bibintensity=c(min(real_value_bibintensity),max(real_value_bibintensity))
-XLConnect::writeWorksheetToFile("data/values_bibintensity_5_updated.xls",real_value_bibintensity,"bib_intens_more5")
+file.remove("data/values_bibintensity_5_updated.xls")
+XLConnect::writeWorksheetToFile("data/values_bibintensity_5_updated.xls",cbind(plant_myco_db[,1:2],real_value_bibintensity),"bib_intens_more5")
 
 plant_myco_db$p_havebounds=unlist(lapply(res_tot,function(x) mean(x$havebounds)))
 
