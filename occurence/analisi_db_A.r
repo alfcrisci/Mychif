@@ -1,7 +1,7 @@
 #####################################################################################################################################
 setwd("")
 
-setwd("/home/alf/Scrivania/lav_michyf/repo/Mychif/occurence")
+setwd("/home/alf/Scrivania/lav_michyf/repositories/Mychif/occurence")
 
 source("load_lib.r")
 source("aux_mycosources.r")
@@ -168,6 +168,7 @@ DB_DATA_TRUE$sampSize=as.numeric(DB_DATA_TRUE$sampSize)
 
 saveRDS(DB_DATA_TRUE,"data/DB_DATA_TRUE.rds")
 #################################################################################################################################
+DB_DATA_TRUE=readRDS("data/DB_DATA_TRUE.rds")
 
 
 by_plant=split(DB_DATA_TRUE,DB_DATA_TRUE$sampMatbased)
@@ -324,6 +325,11 @@ plant_myco_db$p_normality=unlist(lapply(res_pooled,function(x) ifelse(shapiro.te
 plant_myco_db$p_sampsize=range01(unlist(lapply(res_tot,function(x) mean(x$norm_sampSize,na.rm=T))))
 plant_myco_db$p_agepaper=range01(scale(unlist(lapply(res_tot,function(x) mean(x$norm_agepaper,na.rm=T))),center=F))
 plant_myco_db$p_bibintensity=range01(scale(unlist(lapply(res_tot,function(x) length(unique((x$Ref))))),center = F))
+
+real_value_bibintensity=unlist(lapply(res_tot,function(x) length(unique((x$Ref)))))
+min_max_bibintensity=c(min(real_value_bibintensity),max(real_value_bibintensity))
+XLConnect::writeWorksheetToFile("data/values_bibintensity_5_updated.xls",real_value_bibintensity,"bib_intens_more5")
+
 plant_myco_db$p_havebounds=unlist(lapply(res_tot,function(x) mean(x$havebounds)))
 
 plant_myco_db$scoreGEN=plant_myco_db$score_numerosity+
