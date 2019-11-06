@@ -189,9 +189,15 @@ aux_info_mycotox$agepaper=2019-as.numeric(unlist(lapply(regmatches(aux_info_myco
 
 years_paper=aux_info_mycotox$agepaper
 
+############################################################################
+# save images for year
+
 png("images/Years_paper.png")
 hist(years_paper,main="Distribution age of mycotoxin occurence papers \n( Ref year= 2019)")
 dev.off()
+
+############################################################################
+
 
 DB_DATA_TRUE$agepaper=aux_info_mycotox$agepaper
 DB_DATA_TRUE$havebounds=ifelse((!is.na(DB_DATA_TRUE$min) & !is.na(DB_DATA_TRUE$max)),1,0)
@@ -207,21 +213,24 @@ saveRDS(temp_plan_raw,"data/template.rds")
 saveRDS(mycorank,"data/mycorank.rds")
 saveRDS(plantrank,"data/plantrank.rds")
 
+############################################################################
+# Extract  data for CO-OCCURENCE analisys
+
 DB_DATA_TRUE_co_occur=DB_DATA_TRUE[which(DB_DATA_TRUE$Co_occurrence==1),]
-BY_plant_occur=split(DB_DATA_TRUE_co_occur,DB_DATA_TRUE_co_occur$sampMatbased)
-plants_occur=names(BY_plant_occur)
+
+BY_plant_co_occur=split(DB_DATA_TRUE_co_occur,DB_DATA_TRUE_co_occur$sampMatbased)
+
+plants_co_occur=names(BY_plant_co_occur)
 
 
 ############################################################################
 # save data for CO-OCCURENCE analisys
 
 saveRDS(DB_DATA_TRUE_co_occur,"data/DB_DATA_TRUE_co_occur.rds")
-saveRDS(BY_plant_occur,"data/BY_plant_occur.rds")
+saveRDS(BY_plant_co_occur,"data/BY_plant_co_occur.rds")
 
 ##########################################################################
-# working on OCCURENCES
-
-# reload data
+# working on OCCURENCES reloading data
 
 data_occ=readRDS("data/data_occ.rds")
 DB_DATA_TRUE=readRDS("data/DB_DATA_TRUE.rds")
@@ -295,10 +304,12 @@ summ_dimensions=data.frame(rbind(
   summ_psampSize=summary_large(unlist(lapply(res_tot,function(x) mean(x$sampSize,na.rm=T)))),
   summ_p_bibintensity=summary_large(unlist(lapply(res_tot,function(x) length(unique((x$Ref_unique)))))),
   summ_p_havebounds=summary_large(unlist(lapply(res_tot,function(x) mean(x$havebounds))))))
-summ_dimensions$par=row.names(summ_dimensions)
-summ_dimensions=summ_dimensions[c("par",names(summ_dimensions)[2:16])]
+  summ_dimensions$par=row.names(summ_dimensions)
+  summ_dimensions=summ_dimensions[c("par",names(summ_dimensions)[2:16])]
 saveRDS(summ_dimensions,"data/summ_dimensions.rds")
+
 file.remove("data/DATA_summary_by_dimensions.xls")
+
 XLConnect::writeWorksheetToFile("data/DATA_summary_by_dimensions.xls",summ_dimensions,"table par dimensions")
 
 
@@ -356,43 +367,44 @@ XLConnect::writeWorksheetToFile("data/mycotoxins_info.xls",list_reliable_myco5,"
 
 
 ###################################################################################################################
-# Working on CO-OCCURENCE
+# Working on CO-OCCURENCE reloadind data
 
 DB_DATA_TRUE_co_occur=readRDS("data/DB_DATA_TRUE_co_occur.rds")
 
 names(DB_DATA_TRUE_co_occur)
 
 
-BY_plant_occur=readRDS("data/BY_plant_occur.rds")
-plants_occur=names(BY_plant_occur) # 13
+BY_plant_co_occur=readRDS("data/BY_plant_co_occur.rds")
 
-table_plants_co_occur=reshape::melt(unlist(lapply(BY_plant_occur,nrow)))
+plants_co_occur=names(BY_plant_co_occur) # 13
+
+table_plants_co_occur=reshape::melt(unlist(lapply(BY_plant_co_occur,nrow)))
 
 
 
-res_occ_plants=list()
+res_co_occ_plants=list()
 
-for ( i in 1:length(plants_occur)) {
+for ( i in 1:length(plants_co_occur)) {
   
-  res_occ_plants[[i]]=split(BY_plant_occur[[i]],BY_plant_occur[[i]]$Ref)
+  res_co_occ_plants[[i]]=split(BY_plant_co_occur[[i]],BY_plant_co_occur[[i]]$Ref)
   
 }
-names(res_occ_plants)=plants_occur
-saveRDS(res_occ_plants,"data/res_occ_plants_fin.rds")
+names(res_co_occ_plants)=plants_co_occur
+saveRDS(res_co_occ_plants,"data/res_co_occ_plants_fin.rds")
 
 ########################################################################################################
 # WORKING ON DATA LIST FOR ALL CO-OCCURENCE DATA
 
-res_tot_occ=list()
-res_data_occ=list()
-res_names_occ=list()
-res_pooled_occ=list()
+res_tot_co_occ=list()
+res_data_co_occ=list()
+res_names_co_occ=list()
+res_pooled_co_occ=list()
 
 z=1
 
-for ( i in 1:length(plants_occur)) {
+for ( i in 1:length(plants_co_occur)) {
   
-     temp_plant=res_occ_plants[[i]]
+     temp_plant=res_co_occ_plants[[i]]
      
      for (j in seq_along(temp_plant)) { 
        
@@ -402,231 +414,232 @@ for ( i in 1:length(plants_occur)) {
     datavalid = datavalid[!is.na(datavalid)]
     
     if (length(datavalid)>1) 
-    {  res_tot_occ[[z]]=temp_plant_myco;
-       res_data_occ[[z]]=temp_plant_myco[id_data,];
-       res_names_occ[[z]]=paste(names(res_occ_plants)[i],paste(unique(res_occ_plants[[i]][[j]]$paramType),collapse = ":"),sep=";")
-       res_pooled_occ[[z]]=datavalid
+    {  res_tot_co_occ[[z]]=temp_plant_myco;
+       res_data_co_occ[[z]]=temp_plant_myco[id_data,];
+       res_names_co_occ[[z]]=paste(names(res_co_occ_plants)[i],paste(unique(res_co_occ_plants[[i]][[j]]$paramType),collapse = ":"),sep=";")
+       res_pooled_co_occ[[z]]=datavalid
        z=z+1
     }
     }
   }
 
-saveRDS(res_tot,"data/res_tot_occ.rds")
-saveRDS(res_data,"data/res_data_occ.rds")
-saveRDS(res_names,"data/res_names_occ.rds")
-saveRDS(res_pooled,"data/res_pooled_occ.rds")
+saveRDS(res_tot_co_occ,"data/res_tot_co_occ.rds")
+saveRDS(res_data_co_occ,"data/res_data_co_occ.rds")
+saveRDS(res_names_co_occ,"data/res_names_co_occ.rds")
+saveRDS(res_pooled_co_occ,"data/res_pooled_co_occ.rds")
 
 ########################################################################################################
 # WORKING on co-OCCURENCE BIBLIOMETRICS
 
 
-plant_myco_db_occ=read.csv(textConnection(unlist(res_names_occ)),sep=";",header=F)
-names(plant_myco_db_occ)=c("plants","mycotoxins")
+plant_myco_db_co_occ=read.csv(textConnection(unlist(res_names_co_occ)),sep=";",header=F)
+names(plant_myco_db_co_occ)=c("plants","mycotoxins")
 
-plant_myco_db_occ$ndata_valid=unlist(lapply(res_pooled_occ,length))
-plant_myco_db_occ$nrecords=unlist(lapply(res_tot_occ,nrow))
+plant_myco_db_co_occ$ndata_valid=unlist(lapply(res_pooled_co_occ,length))
+plant_myco_db_co_occ$nrecords=unlist(lapply(res_tot_co_occ,nrow))
 
 
-plant_myco_db_occ$score_numerosity=ifelse(plant_myco_db_occ$ndata_valid>25,1,plant_myco_db_occ$ndata_valid/25)
-plant_myco_db_occ$score_validity=plant_myco_db_occ$ndata_valid/plant_myco_db_occ$nrecords
-plant_myco_db_occ$p_sampsize=range01(unlist(lapply(res_tot_occ,function(x) mean(x$norm_sampSize,na.rm=T))))
-plant_myco_db_occ$p_agepaper=range01(scale(unlist(lapply(res_tot_occ,function(x) mean(x$norm_agepaper,na.rm=T))),center=F))
-plant_myco_db_occ$p_agepaper=ifelse(is.na(plant_myco_db_occ$p_agepaper),0,plant_myco_db_occ$p_agepaper)
-plant_myco_db_occ$p_havebounds=unlist(lapply(res_tot_occ,function(x) mean(x$havebounds)))
+plant_myco_db_co_occ$score_numerosity=ifelse(plant_myco_db_co_occ$ndata_valid>25,1,plant_myco_db_co_occ$ndata_valid/25)
+plant_myco_db_co_occ$score_validity=plant_myco_db_co_occ$ndata_valid/plant_myco_db_co_occ$nrecords
+plant_myco_db_co_occ$p_sampsize=range01(unlist(lapply(res_tot_co_occ,function(x) mean(x$norm_sampSize,na.rm=T))))
+plant_myco_db_co_occ$p_agepaper=range01(scale(unlist(lapply(res_tot_co_occ,function(x) mean(x$norm_agepaper,na.rm=T))),center=F))
+plant_myco_db_co_occ$p_agepaper=ifelse(is.na(plant_myco_db_co_occ$p_agepaper),0,plant_myco_db_co_occ$p_agepaper)
+plant_myco_db_co_occ$p_havebounds=unlist(lapply(res_tot_co_occ,function(x) mean(x$havebounds)))
 
-plant_myco_db_occ$scoreGEN=plant_myco_db_occ$score_numerosity+
-                           plant_myco_db_occ$score_validity+
-                           plant_myco_db_occ$p_havebounds+
-                            plant_myco_db_occ$p_sampsize+
-                           plant_myco_db_occ$p_agepaper
+plant_myco_db_co_occ$scoreGEN=plant_myco_db_co_occ$score_numerosity+
+                           plant_myco_db_co_occ$score_validity+
+                           plant_myco_db_co_occ$p_havebounds+
+                           plant_myco_db_co_occ$p_sampsize+
+                           plant_myco_db_co_occ$p_agepaper
 
 file.remove("data/mycotoxins_score_co_occurence.xls")
 
-XLConnect::writeWorksheetToFile("data/mycotoxins_score_co_occurence.xls",plant_myco_db_occ,"data_co_occ")
+XLConnect::writeWorksheetToFile("data/mycotoxins_score_co_occurence.xls",plant_myco_db_co_occ,"data_co_occ")
 
-saveRDS(plant_myco_db_occ,"data/plant_myco_db_occ_tot.rds")
+saveRDS(plant_myco_db_co_occ,"data/plant_myco_db_occ_tot.rds")
 
 
 
 #################################################################################################
-# WORKING on last requests
+# WORKING on merging mycotoxins groups
 
-DB_occ_paola_maize=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="maize")),]
-DB_occ_paola_wheat=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="wheat")),]
-DB_occ_paola_oat=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="oat")),]
-DB_occ_paola_barley=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="barley")),]
+DB_co_occ_paola_maize=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="maize")),]
+DB_co_occ_paola_wheat=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="wheat")),]
+DB_co_occ_paola_oat=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="oat")),]
+DB_co_occ_paola_barley=DB_DATA_TRUE_co_occur[c(which(DB_DATA_TRUE_co_occur$sampMatbased=="barley")),]
 
 # merging DON & FB
 
-DB_occ_paola_maize$paramType[grep("DON",DB_occ_paola_maize$paramType)]="DONs"
-DB_occ_paola_maize$paramType[grep("FB",DB_occ_paola_maize$paramType)]="FBs"
-DB_occ_paola_wheat$paramType[grep("DON",DB_occ_paola_wheat$paramType)]="DONs"
-DB_occ_paola_oat$paramType[grep("DON",DB_occ_paola_oat$paramType)]="DONs"
-DB_occ_paola_barley$paramType[grep("DON",DB_occ_paola_barley$paramType)]="DONs"
+DB_co_occ_paola_maize$paramType[grep("DON",DB_co_occ_paola_maize$paramType)]="DONs"
+DB_co_occ_paola_maize$paramType[grep("FB",DB_co_occ_paola_maize$paramType)]="FBs"
+DB_co_occ_paola_wheat$paramType[grep("DON",DB_co_occ_paola_wheat$paramType)]="DONs"
+DB_co_occ_paola_oat$paramType[grep("DON",DB_co_occ_paola_oat$paramType)]="DONs"
+DB_co_occ_paola_barley$paramType[grep("DON",DB_co_occ_paola_barley$paramType)]="DONs"
 
 ###########################################################################################################################
 
-DB_occ_paola_maize=DB_occ_paola_maize[c(which(DB_occ_paola_maize$paramType=="DONs"),
-                                        which(DB_occ_paola_maize$paramType=="FBs"),
-                                        which(DB_occ_paola_maize$paramType=="AF")),]
+DB_co_occ_paola_maize=DB_co_occ_paola_maize[c(which(DB_co_occ_paola_maize$paramType=="DONs"),
+                                        which(DB_co_occ_paola_maize$paramType=="FBs"),
+                                        which(DB_co_occ_paola_maize$paramType=="AF")),]
 
-DB_occ_paola_wheat=DB_occ_paola_wheat[c(which(DB_occ_paola_wheat$paramType=="DONs"),
-                                        which(DB_occ_paola_wheat$paramType=="ZEN"),
-                                        which(DB_occ_paola_wheat$paramType=="NIV"),
-                                        which(DB_occ_paola_wheat$paramType=="T2+HT2")),]
+DB_co_occ_paola_wheat=DB_co_occ_paola_wheat[c(which(DB_co_occ_paola_wheat$paramType=="DONs"),
+                                        which(DB_co_occ_paola_wheat$paramType=="ZEN"),
+                                        which(DB_co_occ_paola_wheat$paramType=="NIV"),
+                                        which(DB_co_occ_paola_wheat$paramType=="T2+HT2")),]
 
-DB_occ_paola_barley=DB_occ_paola_barley[c(which(DB_occ_paola_barley$paramType=="DONs"),
-                                          which(DB_occ_paola_barley$paramType=="ZEN"),
-                                          which(DB_occ_paola_wheat$paramType=="NIV"),
-                                        which(DB_occ_paola_wheat$paramType=="T2+HT2")),]
+DB_co_occ_paola_barley=DB_co_occ_paola_barley[c(which(DB_co_occ_paola_barley$paramType=="DONs"),
+                                          which(DB_co_occ_paola_barley$paramType=="ZEN"),
+                                          which(DB_co_occ_paola_wheat$paramType=="NIV"),
+                                        which(DB_co_occ_paola_wheat$paramType=="T2+HT2")),]
 
-DB_occ_paola_oat=DB_occ_paola_oat[c(which(DB_occ_paola_oat$paramType=="DONs"),
-                                    which(DB_occ_paola_barley$paramType=="ZEN"),
-                                    which(DB_occ_paola_oat$paramType=="T2+HT2"),
-                                    which(DB_occ_paola_oat$paramType=="NIV")),]
-
-
-
-BY_plant_occur=list(maize=DB_occ_paola_maize,
-                    wheat=DB_occ_paola_wheat,
-                    oat=DB_occ_paola_oat,
-                    barley=DB_occ_paola_barley)
+DB_co_occ_paola_oat=DB_co_occ_paola_oat[c(which(DB_co_occ_paola_oat$paramType=="DONs"),
+                                    which(DB_co_occ_paola_barley$paramType=="ZEN"),
+                                    which(DB_co_occ_paola_oat$paramType=="T2+HT2"),
+                                    which(DB_co_occ_paola_oat$paramType=="NIV")),]
 
 
-plants_occur=names(BY_plant_occur) # 4
 
-table_plants_co_occur=reshape::melt(unlist(lapply(BY_plant_occur,nrow)))
+BY_plant_co_occur=list(maize=DB_co_occ_paola_maize,
+                    wheat=DB_co_occ_paola_wheat,
+                    oat=DB_co_occ_paola_oat,
+                    barley=DB_co_occ_paola_barley)
+
+
+plants_co_occur=names(BY_plant_co_occur) # 4
+
+table_plants_co_occur=reshape::melt(unlist(lapply(BY_plant_co_occur,nrow)))
 
 file.remove("data/table_co_occur_fin.xls")
+
 XLConnect::writeWorksheetToFile("data/table_co_occur_fin.xls",table_plants_co_occur,"table_plants_occur")
 
 
 ########################################################################################################
 # WORKING ON DATA LIST FOR CO-OCCURENCE selected data
 
-res_tot_occ=list()
-res_data_occ=list()
-res_names_occ=list()
-res_pooled_occ=list()
-res_stats_occ=list()
-res_prop_occ=list()
+res_tot_co_occ=list()
+res_data_co_occ=list()
+res_names_co_occ=list()
+res_pooled_co_occ=list()
+res_stats_co_occ=list()
+res_prop_co_occ=list()
 
 z=1
 
-for ( i in 1:length(plants_occur)) {
+for ( i in 1:length(plants_co_occur)) {
   
-  temp_plant=res_occ_plants[[i]]
+  temp_plant=res_co_occ_plants[[i]]
   
   for (j in seq_along(temp_plant)) { 
     
     temp_plant_myco=temp_plant[[j]]
     id_data=unique(c(which(temp_plant_myco$meanTot>0),which(temp_plant_myco$Concentration>0)))
+    
     datavalid=as.numeric(c(temp_plant_myco$meanTot[which(temp_plant_myco$meanTot>0)],temp_plant_myco$Concentration[which(temp_plant_myco$Concentration>0)]))
     paramvalid=c(temp_plant_myco$paramType[which(temp_plant_myco$meanTot>0)],temp_plant_myco$paramType[which(temp_plant_myco$Concentration>0)])
     
-     paramvalid= paramvalid[which(!is.na(datavalid))]
-     datavalid = datavalid[!is.na(datavalid)]
-     
+    paramvalid= paramvalid[which(!is.na(datavalid))]
+    datavalid = datavalid[!is.na(datavalid)]
+    
     if (length(datavalid)>0) 
-    {  res_tot_occ[[z]]=temp_plant_myco;
-       res_data_occ[[z]]=temp_plant_myco[id_data,];
-       res_names_occ[[z]]=paste(names(res_occ_plants)[i],paste(unique(res_occ_plants[[i]][[j]]$paramType),collapse = ":"),sep=";")
-       res_pooled_occ[[z]]=datavalid
-       names(res_pooled_occ[[z]])=paramvalid
-       res_stats_occ[[z]]=c(tapply(datavalid, paste0("Mean_",paramvalid), mean),
+    {  res_tot_co_occ[[z]]=temp_plant_myco;
+       res_data_co_occ[[z]]=temp_plant_myco[id_data,];
+       res_names_co_occ[[z]]=paste(names(res_co_occ_plants)[i],paste(unique(res_co_occ_plants[[i]][[j]]$paramType),collapse = ":"),sep=";")
+       res_pooled_co_occ[[z]]=datavalid
+       names(res_pooled_co_occ[[z]])=paramvalid
+       res_stats_co_occ[[z]]=c(tapply(datavalid, paste0("Mean_",paramvalid), mean),
                             tapply(datavalid, paste0("Sd_",paramvalid), sd),
                             tapply(datavalid, paste0("Max_",paramvalid), max))
-       res_prop_occ[[z]]=tapply(datavalid, paste0("Count_",paramvalid),length)
-       
+       res_prop_co_occ[[z]]=tapply(datavalid, paste0("Count_",paramvalid),length)
+    
     z=z+1
     }
   }
 }
 
 
-plant_myco_db_occ=read.csv(textConnection(unlist(res_names_occ)),sep=";",header=F)
+plant_myco_db_co_occ=read.csv(textConnection(unlist(res_names_co_occ)),sep=";",header=F)
 
-names(plant_myco_db_occ)=c("plants","mycotoxins")
+names(plant_myco_db_co_occ)=c("plants","mycotoxins")
 
-plant_myco_db_occ$ndata_valid=unlist(lapply(res_pooled_occ,length))
-plant_myco_db_occ$nrecords=unlist(lapply(res_tot_occ,nrow))
+plant_myco_db_co_occ$ndata_valid=unlist(lapply(res_pooled_co_occ,length))
+plant_myco_db_co_occ$nrecords=unlist(lapply(res_tot_co_occ,nrow))
 
 
 
-plant_myco_db_occ$Ref=unlist(lapply(res_tot_occ,function(x)x$Ref[1]))
+plant_myco_db_co_occ$Ref=unlist(lapply(res_tot_co_occ,function(x)x$Ref[1]))
 
-plant_myco_db_occ$mycotoxins=as.character(plant_myco_db_occ$mycotoxins)
-plant_myco_db_occ$plants=as.character(plant_myco_db_occ$plants)
-id_valid=grep(":",plant_myco_db_occ$mycotoxins)
+plant_myco_db_co_occ$mycotoxins=as.character(plant_myco_db_co_occ$mycotoxins)
+plant_myco_db_co_occ$plants=as.character(plant_myco_db_co_occ$plants)
+
+id_valid=grep(":",plant_myco_db_co_occ$mycotoxins)
 
 ##########################################################################################
 # here co-occurence selection id_valid variables
 
-plant_myco_db_occ=plant_myco_db_occ[id_valid,]
-res=res_stats_occ[id_valid]
-res_prop=res_prop_occ[id_valid]
+plant_myco_db_co_occ=plant_myco_db_co_occ[id_valid,]
+res=res_stats_co_occ[id_valid]
+res_prop=res_prop_co_occ[id_valid]
 
 #####################################################################################################################################################
 
-saveRDS(res_tot_occ[id_valid],"data/res_tot_occ_sel.rds")
-saveRDS(res_data_occ[id_valid],"data/res_data_occ_sel.rds")
-saveRDS(res_names_occ[id_valid],"data/res_names_occ_sel.rds")
-saveRDS(res_pooled_occ[id_valid],"data/res_pooled_occ_sel.rds")
+saveRDS(res_tot_co_occ[id_valid],"data/res_tot_co_occ_sel.rds")
+saveRDS(res_data_co_occ[id_valid],"data/res_data_co_occ_sel.rds")
+saveRDS(res_names_co_occ[id_valid],"data/res_names_co_occ_sel.rds")
+saveRDS(res_pooled_co_occ[id_valid],"data/res_pooled_co_occ_sel.rds")
+
 
 #####################################################################################################################################################
-# export database dump
+# final task exporting  summaries 
 
-res_pooled_occ=res_pooled_occ[id_valid]
+res_pooled_co_occ=res_pooled_co_occ[id_valid]
 
-names(res_pooled_occ)=sapply(1:nrow(plant_myco_db_occ),function(x) (paste(plant_myco_db_occ[x,1],plant_myco_db_occ[x,2],collapse=":")))
+names(res_pooled_co_occ)=sapply(1:nrow(plant_myco_db_co_occ),function(x) (paste(plant_myco_db_co_occ[x,1],plant_myco_db_co_occ[x,2],collapse=":")))
 
-file.remove("dump/file_data_co_occurence.txt")
-
-sink(file="dump/file_data_co_occurence.txt")
-res_pooled_occ
+file.remove("dump/file_data_co_co_occurence.txt")
+sink(file="dump/file_data_co_co_occurence.txt")
+res_pooled_co_occ
 sink(type = "message")
 sink()
 
 res_pool_data=list()
-for (i in 1:nrow(plant_myco_db_occ)){
-  res_pool_data[[i]]=paste(res_pooled_occ[[i]],collapse=";")
-  names()
+for (i in 1:nrow(plant_myco_db_co_occ)){
+  res_pool_data[[i]]=paste(res_pooled_co_occ[[i]],collapse=";")
+
 }
 
 resls=list()
-for (i in 1:nrow(plant_myco_db_occ)){
+for (i in 1:nrow(plant_myco_db_co_occ)){
   resls[[i]]=paste0(paste(names(res[[i]]),collapse=";"),";",paste(names(res_prop[[i]]),collapse=";"),";",paste(res[[i]],collapse=";"),";",paste(res_prop[[i]],collapse=";"),collapse = "")
   
 }
 
 
 
-plant_myco_db_occ$data=do.call("rbind",resls)
+plant_myco_db_co_occ$data=do.call("rbind",resls)
+
 
 
 #########################################################################################################################################
-
+# write excels
 
 file.remove("data/mycotoxins_co_occurence_ONEtable_fin.xls")
-
-XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_ONEtable_fin.xls",plant_myco_db_occ,"table data co-occurence")
+XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_ONEtable_fin.xls",plant_myco_db_co_occ,"table data co-occurence")
 
 
  
 file.remove("data/mycotoxins_co_occurence_MULTItable_fin.xls")
-
-plant_myco_db_occ_ls=split(plant_myco_db_occ,as.factor(paste(plant_myco_db_occ$plants,plant_myco_db_occ$mycotoxins)))
-
-
-
-for ( i in seq_along(plant_myco_db_occ_ls)) {
-                                    XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_MULTItable_fin.xls",plant_myco_db_occ_ls[[i]],gsub(":"," ",substr(names(plant_myco_db_occ_ls)[i],1,15)))
+plant_myco_db_co_occ_ls=split(plant_myco_db_co_occ,as.factor(paste(plant_myco_db_co_occ$plants,plant_myco_db_co_occ$mycotoxins)))
+for ( i in seq_along(plant_myco_db_co_occ_ls)) {
+                                    XLConnect::writeWorksheetToFile("data/mycotoxins_co_occurence_MULTItable_fin.xls",plant_myco_db_co_occ_ls[[i]],gsub(":"," ",substr(names(plant_myco_db_co_occ_ls)[i],1,15)))
 
 }
 
-# AFTER CREATE MANUALLY ANOTHER EXCEL FILE ARRANGED  mycotoxins_co_occurence_fin_arranged.xls
+saveRDS(plant_myco_db_co_occ,"data/plant_myco_db_occ_fin.rds")
 
-saveRDS(plant_myco_db_occ,"data/plant_myco_db_occ_fin.rds")
+
+# AFTER CREATE MANUALLY ANOTHER EXCEL FILE could be elaborated working on format of raw named mycotoxins_co_occurence_fin_arranged.xls
+
 
 
 
