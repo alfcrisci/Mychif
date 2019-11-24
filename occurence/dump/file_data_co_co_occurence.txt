@@ -67,26 +67,24 @@ $`barley 15AcDON:3AcDON:BEA:DAS:DON:ENA:ENA1:ENB:ENB1:ENB4:FUSX:NEO:NIV:T2+HT2:Z
  0.81  3.92  1.40 15.70 18.43 25.15 11.15 
 
 $`barley DAS:HT2G:NEO:T2+HT2:T2G`
-   DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS 
-   9.0    8.0    8.0    1.0    1.0    2.0    3.0    1.0    1.0    2.0    3.0    1.0    1.0 
-   DAS    DAS   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G 
-   1.0    1.0    1.6    0.6   41.5  162.8   68.7    7.8  118.1    4.7    8.2  144.8   10.3 
-  HT2G   HT2G   HT2G   HT2G   HT2G   HT2G    NEO    NEO    NEO    NEO    NEO    NEO    NEO 
-  76.2   77.8   24.2   19.2   78.6   22.4   16.0   19.0   15.0   17.0   17.0   39.0    7.0 
-   NEO    NEO    NEO    NEO    NEO    NEO    NEO T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 
-  28.0    4.0    4.0   10.0    2.0   29.0   19.0   77.0  118.0   23.0   61.0  138.0   88.0 
-T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 
-  22.0  186.0   26.0   39.0  192.0    3.0   38.0   81.0   89.0   16.0  213.0   82.0   23.0 
-T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 
-  41.0   11.0   26.0   43.0   41.0   11.0  154.0   12.0   27.0   87.0    1.0    4.0   13.0 
-T2+HT2 T2+HT2 T2+HT2 T2+HT2    T2G    T2G    T2G    T2G    T2G    T2G    T2G    T2G    T2G 
-  34.0   10.0  106.0   47.0    1.2    6.3    1.8    0.1    1.0   14.4   14.5    2.9    0.2 
+   DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS    DAS 
+   9.0    8.0    8.0    1.0    1.0    2.0    3.0    1.0    1.0    2.0    3.0    1.0    1.0    1.0 
+   DAS   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G   HT2G 
+   1.0    1.6    0.6   41.5  162.8   68.7    7.8  118.1    4.7    8.2  144.8   10.3   76.2   77.8 
+  HT2G   HT2G   HT2G   HT2G    NEO    NEO    NEO    NEO    NEO    NEO    NEO    NEO    NEO    NEO 
+  24.2   19.2   78.6   22.4   16.0   19.0   15.0   17.0   17.0   39.0    7.0   28.0    4.0    4.0 
+   NEO    NEO    NEO    NEO T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 
+  10.0    2.0   29.0   19.0   77.0  118.0   23.0   61.0  138.0   88.0   22.0  186.0   26.0   39.0 
+T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 
+ 192.0    3.0   38.0   81.0   89.0   16.0  213.0   82.0   23.0   41.0   11.0   26.0   43.0   41.0 
+T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2 T2+HT2    T2G    T2G 
+  11.0  154.0   12.0   27.0   87.0    1.0    4.0   13.0   34.0   10.0  106.0   47.0    1.2    6.3 
+   T2G    T2G    T2G    T2G    T2G    T2G    T2G 
+   1.8    0.1    1.0   14.4   14.5    2.9    0.2 
 
 $`barley 15AcDON:3AcDON:DON:NIV:STO:T2 tetraol:T2 triol:T2+HT2`
-   15AcDON     3AcDON        DON        NIV        STO T2 tetraol   T2 triol     T2+HT2 
-      0.56      13.56       4.50       3.38       1.69       0.19       0.13       0.44 
-    T2+HT2 
-      1.00 
+   15AcDON     3AcDON        DON        NIV        STO T2 tetraol   T2 triol     T2+HT2     T2+HT2 
+      0.56      13.56       4.50       3.38       1.69       0.19       0.13       0.44       1.00 
 
 $`buckwheat AF:OTA`
 OTA 
@@ -148,61 +146,61 @@ $`cereals FB1:FB2`
  FB1  FB1  FB1  FB2  FB2  FB2 
  1.4  8.0 35.0  0.3  1.7 75.0 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          416.0         1122.4         2709.2          399.9          251.2          201.2 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          808.1         2266.8          595.1           78.3           71.9          310.6 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3 
          277.8          438.0          128.1           10.0            3.6 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          135.3          171.7         1898.2          298.5          217.7           11.2 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          101.0          133.2          711.2          109.5           81.8            5.2 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
    FB1    FB2    FB3 
 7878.7 1563.6 1066.1 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
   DON   FB1   FB2   FB3 
  95.5 212.8  58.4  16.3 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON             AF             AF            DON            FB1            FB2 
           65.8            3.0            2.0          138.5         3407.4          650.8 
            FB3            ZEN 
          589.5            9.8 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
  FB1 
 79.1 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          465.6         1683.1          908.6          118.2          139.6          361.7 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
   DON   FB1   FB2   FB3 
  15.6 971.9 329.2 147.7 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
    DAS    DON    FB1    FB2    FB3 
    3.5   46.3 4774.1 1308.8  521.3 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            ZEN 
          405.5         2199.0          713.5           80.4           61.1           58.7 
 
-$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STER:T2+HT2:ZEN:aZEL`
+$`maize 15AcDON+3AcDON:AF:CIT:DAS:DON:DON3G:ErgoCompound:FB1:FB2:FB3:FUSX:NEO:NIV:OTA:ROQC:STC:T2+HT2:ZEN:aZEL`
 15AcDON+3AcDON            DON            FB1            FB2            FB3            NIV 
          120.0          922.1         1205.2          582.9          105.7          175.7 
            ZEN 
@@ -917,12 +915,10 @@ $`maize DON:T2+HT2:ZEN`
     70     99     25     12 
 
 $`maize AcDONs:ALTENARIA:BEA:DON:DON3G:ENA:ENA1:ENB:ENB1:FB1:FB2:FUSX:NIV:T2+HT2:ZEN`
-   AcDONs ALTENARIA ALTENARIA ALTENARIA ALTENARIA       BEA       BEA       DON       DON 
-    211.0       6.0       7.0       0.3       5.0     153.0      47.0     624.0     867.0 
-    DON3G     DON3G       ENA       ENA      ENA1      ENA1       ENB       ENB      ENB1 
-     49.0      27.0     296.0     143.0      26.0      18.0       5.0      40.0       8.0 
-     ENB1       FB1       FB1       FB2       FB2      FUSX       NIV       NIV    T2+HT2 
-     25.0      52.0      35.0      16.0      26.0      77.0     153.0     185.0      32.0 
-      ZEN       ZEN 
-     30.0      29.0 
+   AcDONs ALTENARIA ALTENARIA ALTENARIA ALTENARIA       BEA       BEA       DON       DON     DON3G 
+    211.0       6.0       7.0       0.3       5.0     153.0      47.0     624.0     867.0      49.0 
+    DON3G       ENA       ENA      ENA1      ENA1       ENB       ENB      ENB1      ENB1       FB1 
+     27.0     296.0     143.0      26.0      18.0       5.0      40.0       8.0      25.0      52.0 
+      FB1       FB2       FB2      FUSX       NIV       NIV    T2+HT2       ZEN       ZEN 
+     35.0      16.0      26.0      77.0     153.0     185.0      32.0      30.0      29.0 
 
