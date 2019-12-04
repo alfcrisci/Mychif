@@ -1,4 +1,4 @@
-setwd("/home/alf/Scrivania/lav_michyf/multnom")
+setwd("/home/alf/Scrivania/lav_michyf/mychif_tasks/multnom")
 
 library(readxl)
 library(ggplot2)
@@ -15,7 +15,8 @@ file.remove("res_multinomial.xls")
 file.remove("modeling.txt")
 
 
-sink("modeling.txt")
+#sink("modeling.txt")
+
 for ( i in 1:4) {
 plant=read_xlsx("co_occurrence_multinomial.xlsx",i)
 plant_data=plant[which(!is.na(plant$COUNT)),]
@@ -31,5 +32,5 @@ out=as.data.frame(fitted.values(plant_model))
 names(out)=names(plant_data)[1:3]
 XLConnect::writeWorksheetToFile("res_multinomial.xls",out,plants[i])
 }
-sink()
+#sink()
 
