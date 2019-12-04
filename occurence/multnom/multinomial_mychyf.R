@@ -5,7 +5,7 @@ library(ggplot2)
 library(multcomp)
 library(nnet)
 library(XLConnect)
-
+library(dplyr)
 
 plants=excel_sheets("co_occurrence_multinomial.xlsx")
 
