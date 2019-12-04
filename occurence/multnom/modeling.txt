@@ -1,1 +1,90 @@
-Modeling  Barley DON+NIV+ZEN ~ COUNT Call:multinom(formula = formula_model, data = plant_data)Coefficients:  (Intercept)     COUNT2    7.765930 -7.9667343    6.846294 -7.635231Std. Errors:  (Intercept)    COUNT2    42.00622 41.999013    47.75706 47.74792Residual Deviance: 52.54769 AIC: 60.54769 Modeling  Maize DON+FB+AF ~ COUNT Call:multinom(formula = formula_model, data = plant_data)Coefficients:  (Intercept)     COUNT2  -1.7286007  1.3957433   0.8730064 -3.971321Std. Errors:  (Intercept)      COUNT2    1.078464  0.95455823   38.986429 38.9465307Residual Deviance: 65.1375 AIC: 73.1375 Modeling  Oat DON+T2_HT2+NIV ~ COUNT Call:multinom(formula = formula_model, data = plant_data)Coefficients:  (Intercept)     COUNT2   0.3465736 0.34657363   0.5493061 0.5493061Std. Errors:  (Intercept)     COUNT2   0.3061862 0.30618623   0.2886751 0.2886751Residual Deviance: 48.5474 AIC: 52.5474 Modeling  Wheat DON+ZEN+NIV ~ COUNT Call:multinom(formula = formula_model, data = plant_data)Coefficients:  (Intercept)      COUNT2  -0.2745539 -0.27455393  -1.4381928 -1.4381928Std. Errors:  (Intercept)      COUNT2  0.09807491 0.098074913  0.25694577 0.25694577Residual Deviance: 181.9291 AIC: 185.9291 
+-/                                                                                           # weights:  9 (4 variable)
+initial  value 31.859756 
+final  value 29.208615 
+converged
+Modeling  Barley 
+DON+NIV+ZEN ~ COUNT 
+Call:
+multinom(formula = formula_model, data = plant_data)
+
+Coefficients:
+  (Intercept)      COUNT
+2  -0.2554128 -0.2554128
+3  -0.5493062 -0.5493062
+
+Std. Errors:
+  (Intercept)     COUNT
+2   0.2108185 0.2108185
+3   0.2581989 0.2581989
+
+Residual Deviance: 58.41723 
+AIC: 62.41723 
+-/                                                                                           # weights:  9 (4 variable)
+initial  value 56.029227 
+iter  10 value 32.705526
+iter  20 value 32.573841
+iter  30 value 32.571063
+iter  40 value 32.570224
+iter  50 value 32.569351
+iter  60 value 32.568802
+final  value 32.568749 
+converged
+Modeling  Maize 
+DON+FB+AF ~ COUNT 
+Call:
+multinom(formula = formula_model, data = plant_data)
+
+Coefficients:
+  (Intercept)     COUNT
+2  -1.7286007  1.395743
+3   0.8730064 -3.971321
+
+Std. Errors:
+  (Intercept)      COUNT
+2    1.078464  0.9545582
+3   38.986429 38.9465307
+
+Residual Deviance: 65.1375 
+AIC: 73.1375 
+-/                                                                                           # weights:  9 (4 variable)
+initial  value 26.366695 
+final  value 24.273702 
+converged
+Modeling  Oat 
+DON+T2_HT2+NIV ~ COUNT 
+Call:
+multinom(formula = formula_model, data = plant_data)
+
+Coefficients:
+  (Intercept)     COUNT
+2   0.3465736 0.3465736
+3   0.5493061 0.5493061
+
+Std. Errors:
+  (Intercept)     COUNT
+2   0.3061862 0.3061862
+3   0.2886751 0.2886751
+
+Residual Deviance: 48.5474 
+AIC: 52.5474 
+-/                                                                                           # weights:  9 (4 variable)
+initial  value 127.439025 
+final  value 90.964559 
+converged
+Modeling  Wheat 
+DON+ZEN+NIV ~ COUNT 
+Call:
+multinom(formula = formula_model, data = plant_data)
+
+Coefficients:
+  (Intercept)      COUNT
+2  -0.2745539 -0.2745539
+3  -1.4381928 -1.4381928
+
+Std. Errors:
+  (Intercept)      COUNT
+2  0.09807491 0.09807491
+3  0.25694577 0.25694577
+
+Residual Deviance: 181.9291 
+AIC: 185.9291 
