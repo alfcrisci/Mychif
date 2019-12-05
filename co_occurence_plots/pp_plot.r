@@ -10,12 +10,12 @@ library(ggpubr)
 # require convert of imagemagick
 
 setwd("")
-
+setwd("/home/alf/Scrivania/lav_michyf/repositories/Mychif/co_occurence_plots")
 #########################################################################################################################à
 blue.plain.8.text <- element_text(face = "plain", color = "blue", angle=-75,size = 8)
 
 
-fileex="Mycotoxins_co_occurence_fin_arranged_finale.xls"
+fileex="Mycotoxins_co_occurence_fin_arranged.xls"
 sheet_names=excel_sheets(fileex)
 
 barley=c("barley DONs NIV","barley DONs ZEN NIV")
@@ -66,12 +66,18 @@ my3cols <- c("#E7B800", "#2E9FDF", "#FC4E07")
 p=ggplot(df_wheat_gg) + geom_col(aes(x = References, y = value, fill = Mycotoxin), position = "stack")+ theme(legend.position="bottom")+ scale_x_discrete(labels=id)+theme(axis.text.x =blue.plain.8.text,legend.text=element_text(size=8))+
   labs(title = "Wheat Co-occurence mycotoxins",y="Concentrations",x="")
 g <-ggplot(df_wheat_gg, aes(x=References,y=freq_100, fill = Co_occurence)) + geom_bar(stat="identity")+ theme(legend.position="top")+theme(axis.text.x = element_blank(),legend.text=element_text(size=8))+scale_fill_manual(values=my3cols)+labs(y="Data Freq (%)",x="References")
-a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
+#a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
 
 pdf("wheat.pdf")
-plot(a)
+plot(p)
 dev.off()
-system("convert wheat.pdf wheat.png")
+
+
+png("wheat.png")
+plot(p)
+dev.off()
+
+
 #######################################################################################################################################
 
 
@@ -93,11 +99,12 @@ p=ggplot(df_oat_gg) + geom_col(aes(x = References, y = value, fill = Mycotoxin),
 g <-ggplot(df_oat_gg, aes(x=References,y=freq_100, fill = Co_occurence)) + geom_bar(stat="identity")+ theme(legend.position="top")+theme(axis.text.x = element_blank(),legend.text=element_text(size=8))+scale_fill_manual(values=my3cols)+labs(y="Data Freq (%)",x="References")
 a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
 
-pdf("oat.pdf",)
-plot(a)
+pdf("oat.pdf")
+plot(p)
 dev.off()
-system("convert oat.pdf oat.png")
-
+png("oat.png")
+plot(p)
+dev.off()
 #######################################################################################################################################
 #######################################################################################################################################
 # barley
@@ -117,10 +124,11 @@ g <-ggplot(df_barley_gg, aes(x=References,y=freq_100, fill = Co_occurence)) + ge
 a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
 
 pdf("barley.pdf")
-plot(a)
+plot(p)
 dev.off()
-system("convert barley.pdf barley.png")
-
+png("barley.png")
+plot(p)
+dev.off()
 #######################################################################################################################################
 #######################################################################################################################################
 # maize
@@ -141,9 +149,12 @@ g <-ggplot(df_maize_gg, aes(x=References,y=freq_100, fill = Co_occurence)) + geo
 a=grid.arrange(p, g, ncol = 1,heights=c(5,3))
 
 pdf("maize.pdf")
-plot(a)
+plot(p)
 dev.off()
-system("convert maize.pdf maize.png")
+png("maize.png")
+plot(p)
+dev.off()
+
 
 #######################################################################################################################################
 
