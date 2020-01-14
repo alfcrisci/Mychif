@@ -156,10 +156,10 @@ df_pdi_DON_17$vol_urine=1.7
 temp=rbind(df_pdi_DON_05,df_pdi_DON_17)
 temp_fit=rbind(df_res_DON)
 
-file.remove("PDI_stat_bimbi.xls")
-XLConnect::writeWorksheetToFile("PDI_stat_bimbi.xls",temp,"PDI")
-XLConnect::writeWorksheetToFile("PDI_stat_bimbi.xls",temp_fit,"fit stats")
-XLConnect::writeWorksheetToFile("PDI_stat_bimbi.xls",mat_meta,"metadati")
+file.remove("PDI_stat_child.xls")
+XLConnect::writeWorksheetToFile("PDI_stat_child.xls",temp,"PDI")
+XLConnect::writeWorksheetToFile("PDI_stat_child.xls",temp_fit,"fit stats")
+XLConnect::writeWorksheetToFile("PDI_stat_child.xls",mat_meta,"metadati")
 
 ##############################################################################################################################
 
