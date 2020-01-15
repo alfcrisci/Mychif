@@ -1,0 +1,5 @@
+"dose"	"resp"	"sex"	"size"	"NOAEL"	"LOAEL"	"Mycotoxin"	"exposure"	"type_disp"	"dispersal"
+0	0.45	"Male"	6	0.7	NA	"DON"	21	"SEM"	0.06
+3	0.5	"Male"	6	0.7	NA	"DON"	21	"SEM"	0.06
+6	0.47	"Male"	6	0.7	NA	"DON"	21	"SEM"	0.04
+12	0.53	"Male"	6	0.7	NA	"DON"	21	"SEM"	0.11

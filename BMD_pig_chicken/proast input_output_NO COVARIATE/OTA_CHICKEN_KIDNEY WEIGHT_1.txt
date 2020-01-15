@@ -1,0 +1,5 @@
+"dose"	"resp"	"effect"	"mycotoxin"	"weights"	"timeexp"	"rel_exp"	"species"	"sex"	"sem"	"size"
+0	0.63	"kidney weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.007	20
+1	0.63	"kidney weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.015	20
+2	0.78	"kidney weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.06	20
+4	0.82	"kidney weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.007	20

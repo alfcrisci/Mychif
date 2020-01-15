@@ -1,0 +1,10 @@
+"dose"	"resp"	"effect"	"mycotoxin"	"weights"	"timeexp"	"rel_exp"	"species"	"sex"	"sem"	"size"
+0	17.6	"body weight gain"	"OTA"	NA	28	0	"Marekchicken"	"Male"	0.52	20
+1	15.32	"body weight gain"	"OTA"	NA	28	0	"Marekchicken"	"Male"	0.81	20
+2	11.36	"body weight gain"	"OTA"	NA	28	0	"Marekchicken"	"Male"	0.7	20
+4	9.39	"body weight gain"	"OTA"	NA	28	0	"Marekchicken"	"Male"	0.5	20
+0	25.5	"body weight gain"	"OTA"	NA	49	0	"Marekchicken"	"Male"	0.68	20
+1	23.3	"body weight gain"	"OTA"	NA	49	0	"Marekchicken"	"Male"	0.63	20
+2	18.6	"body weight gain"	"OTA"	NA	49	0	"Marekchicken"	"Male"	0.54	20
+4	15.5	"body weight gain"	"OTA"	NA	49	0	"Marekchicken"	"Male"	0.64	20
+

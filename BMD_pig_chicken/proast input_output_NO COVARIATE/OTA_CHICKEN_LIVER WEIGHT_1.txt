@@ -1,0 +1,5 @@
+"dose"	"resp"	"effect"	"mycotoxin"	"weights"	"timeexp"	"rel_exp"	"species"	"sex"	"sem"	"size"
+0	2.78	"liver weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.18	20
+1	3.07	"liver weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.17	20
+2	3.08	"liver weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.18	20
+4	3.77	"liver weight"	"OTA"	NA	49	1	"chicken"	"Male"	0.1	20

@@ -1,0 +1,13 @@
+"dose"	"resp"	"sex"	"size"	"NOAEL"	"LOAEL"	"Mycotoxin"	"exposure"	"type_disp"	"dispersal"
+0	0.83	"Male"	7	NA	NA	"Aflatoxin"	7	"SEM"	0.06
+0.6	0.84	"Male"	7	NA	NA	"Aflatoxin"	7	"SEM"	0.06
+1.2	1.01	"Male"	7	NA	NA	"Aflatoxin"	7	"SEM"	0.07
+1.8	0.89	"Male"	7	NA	NA	"Aflatoxin"	7	"SEM"	0.07
+0	0.76	"Male"	7	NA	NA	"Aflatoxin"	14	"SEM"	0.04
+0.6	1.03	"Male"	7	NA	NA	"Aflatoxin"	14	"SEM"	0.07
+1.2	1.06	"Male"	7	NA	NA	"Aflatoxin"	14	"SEM"	0.08
+1.8	1.1	"Male"	7	NA	NA	"Aflatoxin"	14	"SEM"	0.1
+0	0.69	"Male"	28	NA	NA	"Aflatoxin"	21	"SEM"	0.03
+0.6	0.98	"Male"	28	NA	NA	"Aflatoxin"	21	"SEM"	0.09
+1.2	1.3	"Male"	28	NA	NA	"Aflatoxin"	21	"SEM"	0.11
+1.8	1.27	"Male"	28	NA	NA	"Aflatoxin"	21	"SEM"	0.12
